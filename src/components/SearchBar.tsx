@@ -2,14 +2,15 @@ import React from 'react';
 import { Input } from './Input';
 import { Button } from './Button';
 
-export interface Props {
-  [key: string]: string;
-  className: string;
-  children: string;
+export type EventHandler<T> = (event: React.ChangeEvent<T>) => void;
+
+export interface SearchBarProps {
+  searchValue: string;
+  onChange: EventHandler<HTMLInputElement>;
 }
 
-export class SearchBar extends React.Component {
-  constructor(props: Props) {
+export class SearchBar extends React.Component<SearchBarProps> {
+  constructor(props: SearchBarProps) {
     super(props);
   }
 
@@ -20,8 +21,12 @@ export class SearchBar extends React.Component {
           <Input
             className="search-bar__input"
             placeholder="Search animals by name"
+            value={this.props.searchValue}
+            onChange={this.props.onChange}
           ></Input>
-          <Button>Search</Button>
+          <Button className="search-bar__button" type="submit">
+            Search
+          </Button>
         </form>
       </div>
     );

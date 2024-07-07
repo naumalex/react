@@ -1,22 +1,24 @@
 import React from 'react';
-import { Props } from './SearchBar';
 
 interface ButtonProps {
   className?: string;
   placeholder?: string;
   children?: string;
+  type?: 'submit' | 'reset' | 'button' | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {
-  constructor(props: Props) {
+  constructor(props: ButtonProps) {
     super(props);
   }
 
   render() {
-    const { className } = this.props;
+    const { className, type } = this.props;
     return (
-      <div className="input-wrapper">
-        <button className={`button ${className}`}>{this.props.children}</button>
+      <div className="button-wrapper">
+        <button className={`button ${className}`} type={type}>
+          {this.props.children}
+        </button>
       </div>
     );
   }

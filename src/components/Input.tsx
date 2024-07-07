@@ -1,25 +1,29 @@
 import React from 'react';
-import { Props } from './SearchBar';
+import { EventHandler } from './SearchBar';
+//import { Props } from './SearchBar';
 
 interface InputProps {
   className?: string;
   placeholder?: string;
   value?: string;
+  onChange: EventHandler<HTMLInputElement>;
 }
 
 export class Input extends React.Component<InputProps> {
-  constructor(props: Props) {
+  constructor(props: InputProps) {
     super(props);
   }
 
   render() {
-    const { className, placeholder, value } = this.props;
+    const { className, placeholder, value, onChange } = this.props;
     return (
       <div className="input-wrapper">
         <input
           className={`input ${className}`}
           placeholder={placeholder}
           value={value}
+          onChange={onChange}
+          type="text"
         ></input>
       </div>
     );
