@@ -4,6 +4,7 @@ interface ButtonProps {
   className?: string;
   placeholder?: string;
   children?: string;
+  onClick?: () => void;
   type?: 'submit' | 'reset' | 'button' | undefined;
 }
 
@@ -13,10 +14,10 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   render() {
-    const { className, type } = this.props;
+    const { className, type, onClick } = this.props;
     return (
       <div className="button-wrapper">
-        <button className={`button ${className}`} type={type}>
+        <button className={`button ${className}`} type={type} onClick={onClick}>
           {this.props.children}
         </button>
       </div>

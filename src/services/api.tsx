@@ -68,7 +68,6 @@ export class Api {
       body: body,
     });
     const animals = await res.json();
-    console.log(animals.animals);
     return animals;
   }
 }

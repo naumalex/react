@@ -4,6 +4,7 @@ import { SearchBar } from './components/search-bar/SearchBar';
 import React from 'react';
 import { SearchResultsList } from './components/results-list/Search-results-list';
 import { Loader } from './components/loader/loader';
+import { ErrorBoundary } from './components/Error-boundary';
 
 interface AppState {
   searchValue: string;
@@ -35,9 +36,7 @@ class App extends React.Component<AppProps, AppState> {
       filter: { name: name },
       page: page,
     });
-    this.setState({ animalsPagedResponse: animals, loading: false }, () =>
-      console.log(this.state),
-    );
+    this.setState({ animalsPagedResponse: animals, loading: false });
   }
 
   async handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
@@ -48,13 +47,15 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <SearchBar
-          searchValue={this.state.searchValue}
-          onChange={this.handleChangeSearchValue.bind(this)}
-          onSubmit={this.handleSubmit.bind(this)}
-        />
-        <SearchResultsList data={this.state.animalsPagedResponse} />
-        <Loader loading={this.state.loading} />
+        <ErrorBoundary>
+          <SearchBar
+            searchValue={this.state.searchValue}
+            onChange={this.handleChangeSearchValue.bind(this)}
+            onSubmit={this.handleSubmit.bind(this)}
+          />
+          <SearchResultsList data={this.state.animalsPagedResponse} />
+          <Loader loading={this.state.loading} />
+        </ErrorBoundary>
       </>
     );
   }
