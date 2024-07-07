@@ -1,6 +1,7 @@
 import React from 'react';
-import { Input } from './Input';
-import { Button } from './Button';
+import { Input } from '../Input';
+import { Button } from '../Button';
+import './SearchBar.css';
 
 export type EventHandler<T> = (event: React.ChangeEvent<T>) => void;
 
@@ -17,7 +18,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
 
   render() {
     return (
-      <div className="search-bar">
+      <section className="search-bar">
         <form className="search-bar__form" onSubmit={this.props.onSubmit}>
           <Input
             className="search-bar__input"
@@ -29,7 +30,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
             Search
           </Button>
         </form>
-      </div>
+      </section>
     );
   }
 }

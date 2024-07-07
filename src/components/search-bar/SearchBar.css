@@ -1,0 +1,20 @@
+.search-bar__form {
+    display: flex;
+    justify-content: center;
+    column-gap: 8px;
+}
+
+.search-bar__input {
+    height: 38px;
+    border-radius: 8px;
+    font-size: larger;
+}
+
+.search-bar__button {
+    background-color: #0067b8;
+    color: white;
+    height: 44px;
+    text-align: center;
+    width: 100px;
+    padding: 0;
+}

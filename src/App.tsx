@@ -1,7 +1,8 @@
 import './App.css';
 import { AnimalsPagedQueryResponse, Api } from './services/api';
-import { SearchBar } from './components/SearchBar';
+import { SearchBar } from './components/search-bar/SearchBar';
 import React from 'react';
+import { SearchResultsList } from './components/results-list/Search-results-list';
 
 interface AppState {
   searchValue: string;
@@ -47,6 +48,7 @@ class App extends React.Component<AppProps, AppState> {
           onChange={this.handleChangeSearchValue.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
         />
+        <SearchResultsList data={this.state.animalsPagedResponse} />
       </>
     );
   }
