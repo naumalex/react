@@ -12,7 +12,8 @@ export interface SearchBarProps {
 }
 
 export class SearchBar extends React.Component<SearchBarProps> {
-  isError: boolean;
+  isError: boolean = false;
+
   constructor(props: SearchBarProps) {
     super(props);
   }
