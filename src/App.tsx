@@ -3,10 +3,12 @@ import { AnimalsPagedQueryResponse, Api } from './services/api';
 import { SearchBar } from './components/search-bar/SearchBar';
 import React from 'react';
 import { SearchResultsList } from './components/results-list/Search-results-list';
+import { Loader } from './components/loader/loader';
 
 interface AppState {
   searchValue: string;
   animalsPagedResponse?: AnimalsPagedQueryResponse;
+  loading: boolean;
 }
 
 interface AppProps {}
@@ -14,7 +16,7 @@ interface AppProps {}
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { searchValue: '' };
+    this.state = { searchValue: '', loading: false };
   }
 
   async componentDidMount() {
@@ -26,11 +28,12 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   async loadData(name: string, page: number = 0) {
+    this.setState({ loading: true });
     const animals = await Api.getAnimals({
       filter: { name: name },
       page: page,
     });
-    this.setState({ animalsPagedResponse: animals }, () =>
+    this.setState({ animalsPagedResponse: animals, loading: false }, () =>
       console.log(this.state),
     );
   }
@@ -49,6 +52,7 @@ class App extends React.Component<AppProps, AppState> {
           onSubmit={this.handleSubmit.bind(this)}
         />
         <SearchResultsList data={this.state.animalsPagedResponse} />
+        <Loader loading={this.state.loading} />
       </>
     );
   }
