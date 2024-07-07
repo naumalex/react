@@ -16,7 +16,8 @@ interface AppProps {}
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { searchValue: '', loading: false };
+    const searchValue = localStorage.getItem('searchValue') || '';
+    this.state = { searchValue: searchValue, loading: false };
   }
 
   async componentDidMount() {
@@ -24,7 +25,8 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   handleChangeSearchValue(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ searchValue: event.target.value });
+    this.setState({ searchValue: event.target.value.trim() });
+    localStorage.setItem('searchValue', event.target.value);
   }
 
   async loadData(name: string, page: number = 0) {
