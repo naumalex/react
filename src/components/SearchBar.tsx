@@ -7,6 +7,7 @@ export type EventHandler<T> = (event: React.ChangeEvent<T>) => void;
 export interface SearchBarProps {
   searchValue: string;
   onChange: EventHandler<HTMLInputElement>;
+  onSubmit: EventHandler<HTMLFormElement>;
 }
 
 export class SearchBar extends React.Component<SearchBarProps> {
@@ -17,7 +18,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
   render() {
     return (
       <div className="search-bar">
-        <form className="search-bar__form">
+        <form className="search-bar__form" onSubmit={this.props.onSubmit}>
           <Input
             className="search-bar__input"
             placeholder="Search animals by name"
