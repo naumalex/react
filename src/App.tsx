@@ -3,7 +3,7 @@ import { AnimalsPagedQueryResponse, Api } from './services/api';
 import { SearchBar } from './components/search-bar/SearchBar';
 import React from 'react';
 import { SearchResultsList } from './components/results-list/Search-results-list';
-import { Loader } from './components/loader/loader';
+import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
 
 interface AppState {
