@@ -1,6 +1,5 @@
 import React from 'react';
 import { EventHandler } from './search-bar/SearchBar';
-//import { Props } from './SearchBar';
 
 interface InputProps {
   className?: string;
