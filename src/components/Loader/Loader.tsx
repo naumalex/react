@@ -11,12 +11,11 @@ export class Loader extends React.Component<LoaderProps> {
   }
 
   render() {
-    let className = 'overlay';
     if (!this.props.loading) {
-      className += ' hidden';
+      return null;
     }
     return (
-      <div className={className}>
+      <div className="overlay">
         <div className="loader"></div>
       </div>
     );
