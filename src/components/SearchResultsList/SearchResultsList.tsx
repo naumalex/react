@@ -1,6 +1,6 @@
 import React from 'react';
 import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
-import './Search-results-list.css';
+import './SearchResultsList.css';
 
 interface SerachResultsListProps {
   data?: AnimalsPagedQueryResponse;

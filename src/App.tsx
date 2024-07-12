@@ -2,7 +2,7 @@ import './App.css';
 import { AnimalsPagedQueryResponse, Api } from './services/api';
 import { SearchBar } from './components/search-bar/SearchBar';
 import React from 'react';
-import { SearchResultsList } from './components/results-list/Search-results-list';
+import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
 import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
 
