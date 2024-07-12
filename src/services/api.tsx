@@ -55,11 +55,9 @@ export class Api {
     if (searchParams.filter) {
       body = Api.buildBody(searchParams.filter);
     }
-    let url = 'https://stapi.co/api/v1/rest/animal/search';
-    if (params.size > 0) {
-      url += `?${params}`;
-    }
-    const res = await fetch(url, {
+    const BASE_URL = 'https://stapi.co/api/v1/rest/animal/search';
+    const QUERY_STRING = params.size > 0 ? `?${params}` : '';
+    const res = await fetch(`${BASE_URL}${QUERY_STRING}`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
