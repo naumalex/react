@@ -19,7 +19,7 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
 
   private renderListHeader() {
     return (
-      <li key="0" className="search-results__list-item header">
+      <li className="search-results__list-item header">
         <div className="search-results__list-item-cell col-one">Name</div>
         <div className="search-results__list-item-cell col-two">Uid</div>
         <div className="search-results__list-item-cell col-three">Type</div>
