@@ -14,11 +14,11 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   render() {
-    const { className, type, onClick } = this.props;
+    const { className, type, onClick, children } = this.props;
     return (
       <div className="button-wrapper">
         <button className={`button ${className}`} type={type} onClick={onClick}>
-          {this.props.children}
+          {children}
         </button>
       </div>
     );
