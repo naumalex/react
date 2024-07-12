@@ -23,7 +23,7 @@ export class Input extends React.Component<InputProps> {
           value={value}
           onChange={onChange}
           type="text"
-        ></input>
+        />
       </div>
     );
   }
