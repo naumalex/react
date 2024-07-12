@@ -11,11 +11,16 @@ export interface SearchBarProps {
   onSubmit: EventHandler<HTMLFormElement>;
 }
 
-export class SearchBar extends React.Component<SearchBarProps> {
+export interface SearchBarState {
+  isError: boolean;
+}
+
+export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   isError: boolean = false;
 
   constructor(props: SearchBarProps) {
     super(props);
+    this.state = { isError: false };
   }
 
   static generateError() {
@@ -23,14 +28,13 @@ export class SearchBar extends React.Component<SearchBarProps> {
   }
 
   handleClickErrorButton() {
-    this.isError = true;
-    this.forceUpdate();
+    this.setState({ isError: true });
   }
 
   render() {
-    if (this.isError) {
+    if (this.state.isError) {
       SearchBar.generateError();
-      this.isError = false;
+      this.setState({ isError: false });
     }
     return (
       <section className="search-bar">
