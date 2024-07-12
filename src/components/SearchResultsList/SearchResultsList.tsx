@@ -7,10 +7,6 @@ interface SerachResultsListProps {
 }
 
 export class SearchResultsList extends React.Component<SerachResultsListProps> {
-  constructor(props: SerachResultsListProps) {
-    super(props);
-  }
-
   getAnimalType(animal: Animal) {
     const type: string[] = [];
     if (animal.avian) {
