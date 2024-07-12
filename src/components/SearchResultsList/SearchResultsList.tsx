@@ -28,11 +28,7 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
   }
 
   private renderListItems() {
-    const animalsData: Animal[] | undefined = this.props.data?.animals;
-    if (!animalsData) {
-      return;
-    }
-    const listItems = animalsData.map((animal) => {
+    const listItems = this.props.data?.animals.map((animal) => {
       return (
         <li key={animal.uid} className="search-results__list-item">
           <div className="search-results__list-item-cell col-one">
