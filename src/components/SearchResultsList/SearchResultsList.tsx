@@ -32,17 +32,17 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
     if (!animalsData) {
       return;
     }
-    const listItems = animalsData.map((element, i) => {
+    const listItems = animalsData.map((animal) => {
       return (
-        <li key={i + 1} className="search-results__list-item">
+        <li key={animal.uid} className="search-results__list-item">
           <div className="search-results__list-item-cell col-one">
-            {element.name}
+            {animal.name}
           </div>
           <div className="search-results__list-item-cell col-two">
-            {element.uid}
+            {animal.uid}
           </div>
           <div className="search-results__list-item-cell col-three">
-            {this.getAnimalType(element)}
+            {this.getAnimalType(animal)}
           </div>
         </li>
       );
