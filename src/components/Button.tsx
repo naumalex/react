@@ -5,7 +5,7 @@ interface ButtonProps {
   placeholder?: string;
   children?: string;
   onClick?: () => void;
-  type?: 'submit' | 'reset' | 'button' | undefined;
+  type?: 'submit' | 'reset' | 'button';
 }
 
 export class Button extends React.Component<ButtonProps> {
