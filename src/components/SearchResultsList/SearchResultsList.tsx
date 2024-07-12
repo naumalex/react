@@ -8,23 +8,13 @@ interface SerachResultsListProps {
 
 export class SearchResultsList extends React.Component<SerachResultsListProps> {
   getAnimalType(animal: Animal) {
-    const type: string[] = [];
-    if (animal.avian) {
-      type.push('avian');
-    }
-    if (animal.canine) {
-      type.push('canine');
-    }
-    if (animal.earthAnimal) {
-      type.push('earth animal');
-    }
-    if (animal.earthInsect) {
-      type.push('earth insect');
-    }
-    if (animal.feline) {
-      type.push('feline');
-    }
-    return type.join(', ');
+    const keysToSkip: Array<keyof Animal> = ['uid', 'name'];
+    return (Object.keys(animal) as Array<keyof Animal>)
+      .filter((typeKey) => animal[typeKey] && !keysToSkip.includes(typeKey))
+      .map((typeKey) =>
+        typeKey.replace(/([a-z])([A-Z])/, `$1 $2`).toLowerCase(),
+      )
+      .join(', ');
   }
 
   private renderListHeader() {
