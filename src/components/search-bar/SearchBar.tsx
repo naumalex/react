@@ -21,6 +21,7 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
     this.state = { isError: false };
+    this.handleClickErrorButton = this.handleClickErrorButton.bind(this);
   }
 
   static generateError() {
@@ -44,13 +45,13 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
             placeholder="Search animals by name"
             value={this.props.searchValue}
             onChange={this.props.onChange}
-          ></Input>
+          />
           <Button className="search-bar__button" type="submit">
             Search
           </Button>
           <Button
             className="search-bar__button"
-            onClick={this.handleClickErrorButton.bind(this)}
+            onClick={this.handleClickErrorButton}
           >
             Error
           </Button>
