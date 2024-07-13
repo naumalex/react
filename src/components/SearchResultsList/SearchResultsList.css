@@ -1,0 +1,34 @@
+.search-results {
+  width: 100%;
+}
+
+.search-results__list-item {
+  display: flex;
+  width: 80%;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  min-height: 48px;
+  align-items: center;
+  background-color: #f5f7fd;
+  border: solid 1px #c5cce3;
+  margin: 8px auto;
+}
+
+.search-results__list-item-cell.col-two,
+.search-results__list-item-cell.col-three {
+  flex: 0 0 150px;
+}
+
+.search-results__list-item-cell.col-one {
+  min-width: 180px;
+}
+
+.search-results__list-item-cell {
+  text-align: left;
+}
+
+.search-results__list-item.header {
+  font-weight: bolder;
+  background-color: #e9edfb;
+}
