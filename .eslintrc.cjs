@@ -18,8 +18,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'react-compiler/react-compiler': 'error',
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   settings: {
     react: {
