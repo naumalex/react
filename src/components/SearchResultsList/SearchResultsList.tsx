@@ -1,5 +1,5 @@
 import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
-import './SearchResultsList.css';
+import styles from './SearchResultsList.module.css';
 
 interface SerachResultsListProps {
   data?: AnimalsPagedQueryResponse;
@@ -18,10 +18,18 @@ export function SearchResultsList(props: SerachResultsListProps) {
 
   const renderListHeader = () => {
     return (
-      <li className="search-results__list-item header">
-        <div className="search-results__list-item-cell col-one">Name</div>
-        <div className="search-results__list-item-cell col-two">Uid</div>
-        <div className="search-results__list-item-cell col-three">Type</div>
+      <li className={`${styles.searchResultsListItem} ${styles.header}`}>
+        <div className={`${styles.searchResultsListItemCell} ${styles.colOne}`}>
+          Name
+        </div>
+        <div className={`${styles.searchResultsListItemCell} ${styles.colTwo}`}>
+          Uid
+        </div>
+        <div
+          className={`${styles.searchResultsListItemCell} ${styles.colThree}`}
+        >
+          Type
+        </div>
       </li>
     );
   };
@@ -29,14 +37,20 @@ export function SearchResultsList(props: SerachResultsListProps) {
   const renderListItems = () => {
     const listItems = props.data?.animals.map((animal) => {
       return (
-        <li key={animal.uid} className="search-results__list-item">
-          <div className="search-results__list-item-cell col-one">
+        <li key={animal.uid} className={styles.searchResultsListItem}>
+          <div
+            className={`${styles.searchResultsListItemCell} ${styles.colOne}`}
+          >
             {animal.name}
           </div>
-          <div className="search-results__list-item-cell col-two">
+          <div
+            className={`${styles.searchResultsListItemCell} ${styles.colTwo}`}
+          >
             {animal.uid}
           </div>
-          <div className="search-results__list-item-cell col-three">
+          <div
+            className={`${styles.searchResultsListItemCell} ${styles.colThree}`}
+          >
             {getAnimalType(animal)}
           </div>
         </li>
@@ -45,8 +59,8 @@ export function SearchResultsList(props: SerachResultsListProps) {
     return listItems;
   };
   return (
-    <section className="search-results">
-      <ul className={'search-results__list'}>
+    <section className={styles.searchResults}>
+      <ul className={styles.searchReasultsList}>
         {renderListHeader()}
         {renderListItems()}
       </ul>

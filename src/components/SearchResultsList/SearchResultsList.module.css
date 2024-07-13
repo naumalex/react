@@ -1,8 +1,8 @@
-.search-results {
+.searchResults {
   width: 100%;
 }
 
-.search-results__list-item {
+.searchResultsListItem {
   display: flex;
   width: 80%;
   justify-content: space-evenly;
@@ -15,20 +15,20 @@
   margin: 8px auto;
 }
 
-.search-results__list-item-cell.col-two,
-.search-results__list-item-cell.col-three {
+.searchResultsListItemCell.colTwo,
+.searchResultsListItemCell.colThree {
   flex: 0 0 150px;
 }
 
-.search-results__list-item-cell.col-one {
+.searchResultsListItemCell.colOne {
   min-width: 180px;
 }
 
-.search-results__list-item-cell {
+.searchResultsListItemCell {
   text-align: left;
 }
 
-.search-results__list-item.header {
+.searchResultsListItem.header {
   font-weight: bolder;
   background-color: #e9edfb;
 }
