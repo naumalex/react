@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface ButtonProps {
   className?: string;
   placeholder?: string;
@@ -8,19 +6,13 @@ interface ButtonProps {
   type?: 'submit' | 'reset' | 'button';
 }
 
-export class Button extends React.Component<ButtonProps> {
-  constructor(props: ButtonProps) {
-    super(props);
-  }
-
-  render() {
-    const { className, type, onClick, children } = this.props;
-    return (
-      <div className="button-wrapper">
-        <button className={`button ${className}`} type={type} onClick={onClick}>
-          {children}
-        </button>
-      </div>
-    );
-  }
+export function Button(props: ButtonProps) {
+  const { className, type, onClick, children } = props;
+  return (
+    <div className="button-wrapper">
+      <button className={`button ${className}`} type={type} onClick={onClick}>
+        {children}
+      </button>
+    </div>
+  );
 }
