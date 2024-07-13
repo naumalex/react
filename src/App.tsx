@@ -5,11 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
 import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
-  const [searchValue, setSearchvalue] = useState(
-    localStorage.getItem('searchValue') || '',
-  );
+  const [searchValue, setSearchValue] = useLocalStorage();
   const [animalsPagedResponse, setAnimalsPagedResponse] =
     useState<AnimalsPagedQueryResponse>({
       animals: [],
@@ -24,6 +23,7 @@ function App() {
       },
     });
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     async function fetchData() {
       await loadData(searchValue);
@@ -34,8 +34,7 @@ function App() {
   const handleChangeSearchValue = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchvalue(event.target.value.trim());
-    localStorage.setItem('searchValue', event.target.value);
+    setSearchValue(event.target.value.trim());
   };
 
   const loadData = async (name: string, page: number = 0) => {
@@ -50,7 +49,6 @@ function App() {
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSearchvalue(event.target.value.trim());
     await loadData(searchValue);
   };
 
