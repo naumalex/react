@@ -1,4 +1,3 @@
-import React from 'react';
 import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
 import './SearchResultsList.css';
 
@@ -6,8 +5,8 @@ interface SerachResultsListProps {
   data?: AnimalsPagedQueryResponse;
 }
 
-export class SearchResultsList extends React.Component<SerachResultsListProps> {
-  getAnimalType(animal: Animal) {
+export function SearchResultsList(props: SerachResultsListProps) {
+  const getAnimalType = (animal: Animal) => {
     const keysToSkip: Array<keyof Animal> = ['uid', 'name'];
     return (Object.keys(animal) as Array<keyof Animal>)
       .filter((typeKey) => animal[typeKey] && !keysToSkip.includes(typeKey))
@@ -15,9 +14,9 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
         typeKey.replace(/([a-z])([A-Z])/, `$1 $2`).toLowerCase(),
       )
       .join(', ');
-  }
+  };
 
-  private renderListHeader() {
+  const renderListHeader = () => {
     return (
       <li className="search-results__list-item header">
         <div className="search-results__list-item-cell col-one">Name</div>
@@ -25,10 +24,10 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
         <div className="search-results__list-item-cell col-three">Type</div>
       </li>
     );
-  }
+  };
 
-  private renderListItems() {
-    const listItems = this.props.data?.animals.map((animal) => {
+  const renderListItems = () => {
+    const listItems = props.data?.animals.map((animal) => {
       return (
         <li key={animal.uid} className="search-results__list-item">
           <div className="search-results__list-item-cell col-one">
@@ -38,22 +37,19 @@ export class SearchResultsList extends React.Component<SerachResultsListProps> {
             {animal.uid}
           </div>
           <div className="search-results__list-item-cell col-three">
-            {this.getAnimalType(animal)}
+            {getAnimalType(animal)}
           </div>
         </li>
       );
     });
     return listItems;
-  }
-
-  render() {
-    return (
-      <section className="search-results">
-        <ul className={'search-results__list'}>
-          {this.renderListHeader()}
-          {this.renderListItems()}
-        </ul>
-      </section>
-    );
-  }
+  };
+  return (
+    <section className="search-results">
+      <ul className={'search-results__list'}>
+        {renderListHeader()}
+        {renderListItems()}
+      </ul>
+    </section>
+  );
 }
