@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import './SearchBar.css';
@@ -15,48 +15,35 @@ export interface SearchBarState {
   isError: boolean;
 }
 
-export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
-  isError: boolean = false;
+export function SearchBar(props: SearchBarProps) {
+  const [isError, setIsError] = useState(false);
 
-  constructor(props: SearchBarProps) {
-    super(props);
-    this.state = { isError: false };
-    this.handleClickErrorButton = this.handleClickErrorButton.bind(this);
-  }
-
-  static generateError() {
+  const handleClickErrorButton = () => {
+    setIsError(true);
+  };
+  const generateError = () => {
     throw new Error('Test Error');
+  };
+  if (isError) {
+    generateError();
+    setIsError(false);
   }
-
-  handleClickErrorButton() {
-    this.setState({ isError: true });
-  }
-
-  render() {
-    if (this.state.isError) {
-      SearchBar.generateError();
-      this.setState({ isError: false });
-    }
-    return (
-      <section className="search-bar">
-        <form className="search-bar__form" onSubmit={this.props.onSubmit}>
-          <Input
-            className="search-bar__input"
-            placeholder="Search animals by name"
-            value={this.props.searchValue}
-            onChange={this.props.onChange}
-          />
-          <Button className="search-bar__button" type="submit">
-            Search
-          </Button>
-          <Button
-            className="search-bar__button"
-            onClick={this.handleClickErrorButton}
-          >
-            Error
-          </Button>
-        </form>
-      </section>
-    );
-  }
+  return (
+    <section className="search-bar">
+      <form className="search-bar__form" onSubmit={props.onSubmit}>
+        <Input
+          className="search-bar__input"
+          placeholder="Search animals by name"
+          value={props.searchValue}
+          onChange={props.onChange}
+        />
+        <Button className="search-bar__button" type="submit">
+          Search
+        </Button>
+        <Button className="search-bar__button" onClick={handleClickErrorButton}>
+          Error
+        </Button>
+      </form>
+    </section>
+  );
 }
