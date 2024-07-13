@@ -10,7 +10,7 @@ export function Button(props: ButtonProps) {
   const { className, type, onClick, children } = props;
   return (
     <div className="button-wrapper">
-      <button className={`button ${className}`} type={type} onClick={onClick}>
+      <button className={className} type={type} onClick={onClick}>
         {children}
       </button>
     </div>

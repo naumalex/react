@@ -1,4 +1,3 @@
-import React from 'react';
 import { EventHandler } from './search-bar/SearchBar';
 
 interface InputProps {
@@ -8,23 +7,17 @@ interface InputProps {
   onChange: EventHandler<HTMLInputElement>;
 }
 
-export class Input extends React.Component<InputProps> {
-  constructor(props: InputProps) {
-    super(props);
-  }
-
-  render() {
-    const { className, placeholder, value, onChange } = this.props;
-    return (
-      <div className="input-wrapper">
-        <input
-          className={`input ${className}`}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          type="text"
-        />
-      </div>
-    );
-  }
+export function Input(props: InputProps) {
+  const { className, placeholder, value, onChange } = props;
+  return (
+    <div className="input-wrapper">
+      <input
+        className={className}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        type="text"
+      />
+    </div>
+  );
 }
