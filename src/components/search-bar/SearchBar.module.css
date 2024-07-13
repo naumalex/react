@@ -1,16 +1,16 @@
-.search-bar__form {
+.searchForm {
   display: flex;
   justify-content: center;
   column-gap: 8px;
 }
 
-.search-bar__input {
+.searchInput {
   height: 38px;
   border-radius: 8px;
   font-size: larger;
 }
 
-.search-bar__button {
+.searchButton {
   background-color: #0067b8;
   color: white;
   height: 44px;

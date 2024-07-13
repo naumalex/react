@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '../Input';
 import { Button } from '../Button';
-import './SearchBar.css';
+import styles from './SearchBar.module.css';
 
 export type EventHandler<T> = (event: React.ChangeEvent<T>) => void;
 
@@ -29,18 +29,21 @@ export function SearchBar(props: SearchBarProps) {
     setIsError(false);
   }
   return (
-    <section className="search-bar">
-      <form className="search-bar__form" onSubmit={props.onSubmit}>
+    <section>
+      <form className={styles.searchForm} onSubmit={props.onSubmit}>
         <Input
-          className="search-bar__input"
+          className={styles.searchInput}
           placeholder="Search animals by name"
           value={props.searchValue}
           onChange={props.onChange}
         />
-        <Button className="search-bar__button" type="submit">
+        <Button className={styles.searchButton} type="submit">
           Search
         </Button>
-        <Button className="search-bar__button" onClick={handleClickErrorButton}>
+        <Button
+          className={styles.searchButton}
+          onClick={handleClickErrorButton}
+        >
           Error
         </Button>
       </form>
