@@ -1,6 +1,6 @@
 import './App.css';
 import { AnimalsPagedQueryResponse, Api } from './services/api';
-import { SearchBar } from './components/search-bar/SearchBar';
+import { SearchBar } from './components/SearchBar/SearchBar';
 import React, { useEffect, useState } from 'react';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
 import { Loader } from './components/Loader/Loader';

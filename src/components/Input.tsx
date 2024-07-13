@@ -1,4 +1,4 @@
-import { EventHandler } from './search-bar/SearchBar';
+import { EventHandler } from './SearchBar/SearchBar';
 
 interface InputProps {
   className?: string;
