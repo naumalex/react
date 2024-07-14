@@ -4,17 +4,21 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { AnimalDetails } from './components/AnimalDetails/AnimalDetails.tsx';
+import { animalLoader } from './routes/animalLoader.tsx';
+
 const router = createBrowserRouter([
   {
     path: '',
     element: <App />,
-    /*
-children: [
-{
-  path: "pages/:page",
-  element: <div>Test</div>,
-},
-],*/
+
+    children: [
+      {
+        path: 'details/:id',
+        element: <AnimalDetails />,
+        loader: animalLoader,
+      },
+    ],
   },
 ]);
 

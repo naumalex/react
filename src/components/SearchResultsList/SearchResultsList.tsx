@@ -1,5 +1,5 @@
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
-import { Pagination } from '../Pagination/Pagination';
 import styles from './SearchResultsList.module.css';
 
 interface SerachResultsListProps {
@@ -8,6 +8,8 @@ interface SerachResultsListProps {
 }
 
 export function SearchResultsList(props: SerachResultsListProps) {
+  const navigate = useNavigate();
+
   const getAnimalType = (animal: Animal) => {
     const keysToSkip: Array<keyof Animal> = ['uid', 'name'];
     return (Object.keys(animal) as Array<keyof Animal>)
@@ -16,6 +18,29 @@ export function SearchResultsList(props: SerachResultsListProps) {
         typeKey.replace(/([a-z])([A-Z])/, `$1 $2`).toLowerCase(),
       )
       .join(', ');
+  };
+
+  const clickListHandler = (e: React.MouseEvent) => {
+    if (e.target instanceof HTMLElement) {
+      if (location.pathname.includes('details')) {
+        navigate({
+          pathname: '/',
+          search: location.search,
+        });
+        return;
+      }
+      const target = e.target.closest('li');
+      if (!target) {
+        return;
+      }
+      const uid = target.getAttribute('id');
+      if (target && uid) {
+        navigate({
+          pathname: `details/${uid}`,
+          search: location.search,
+        });
+      }
+    }
   };
 
   const renderListHeader = () => {
@@ -39,7 +64,11 @@ export function SearchResultsList(props: SerachResultsListProps) {
   const renderListItems = () => {
     const listItems = props.animalsResponseData?.animals.map((animal) => {
       return (
-        <li key={animal.uid} className={styles.searchResultsListItem}>
+        <li
+          key={animal.uid}
+          id={animal.uid}
+          className={styles.searchResultsListItem}
+        >
           <div
             className={`${styles.searchResultsListItemCell} ${styles.colOne}`}
           >
@@ -62,14 +91,11 @@ export function SearchResultsList(props: SerachResultsListProps) {
   };
   return (
     <section className={styles.searchResults}>
-      <ul className={styles.searchReasultsList}>
+      <ul className={styles.searchResultsList} onClick={clickListHandler}>
         {renderListHeader()}
         {renderListItems()}
       </ul>
-      <Pagination
-        page={props.animalsResponseData.page}
-        setActivePage={props.setPage}
-      />
+      <Outlet />
     </section>
   );
 }

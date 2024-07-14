@@ -30,6 +30,8 @@ export interface AnimalsPagedQueryResponse {
 }
 
 export class Api {
+  static BASE_URL = 'https://stapi.co/api/v1/rest/';
+
   static buildBody(filter: Partial<Animal>): string {
     const body = [];
     let key: keyof Partial<Animal>;
@@ -55,9 +57,9 @@ export class Api {
     if (searchParams.filter) {
       body = Api.buildBody(searchParams.filter);
     }
-    const BASE_URL = 'https://stapi.co/api/v1/rest/animal/search';
+    //const BASE_URL = 'https://stapi.co/api/v1/rest/animal/search';
     const QUERY_STRING = params.size > 0 ? `?${params}` : '';
-    const res = await fetch(`${BASE_URL}${QUERY_STRING}`, {
+    const res = await fetch(`${Api.BASE_URL}animal/search${QUERY_STRING}`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -67,5 +69,19 @@ export class Api {
     });
     const animals = await res.json();
     return animals;
+  }
+
+  static async getAnimal(uid: string): Promise<Animal> {
+    const params = new URLSearchParams();
+    params.set('uid', uid);
+    // const BASE_URL = 'https://stapi.co/api/v1/rest/animal';
+    const res = await fetch(`${Api.BASE_URL}animal?${params}`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    });
+    const animal = await res.json();
+    return animal;
   }
 }

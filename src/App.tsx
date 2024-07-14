@@ -7,11 +7,11 @@ import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import {
-  Outlet,
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
+import { Pagination } from './components/Pagination/Pagination';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
@@ -86,10 +86,12 @@ function App() {
           setPage={setActivePage}
         />
         <Loader loading={isLoading} />
-        <Outlet />
+        <Pagination
+          page={animalsPagedResponse.page}
+          setActivePage={setActivePage}
+        />
       </ErrorBoundary>
     </>
   );
 }
-
 export default App;
