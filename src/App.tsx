@@ -6,6 +6,12 @@ import { SearchResultsList } from './components/SearchResultsList/SearchResultsL
 import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import {
+  Outlet,
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
@@ -13,7 +19,7 @@ function App() {
     useState<AnimalsPagedQueryResponse>({
       animals: [],
       page: {
-        pageNumber: 0,
+        pageNumber: 1,
         pageSize: 0,
         numberOfElements: 0,
         totalElements: 0,
@@ -23,13 +29,18 @@ function App() {
       },
     });
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
-      await loadData(searchValue);
+      await loadData(searchValue, currentPage);
     }
+    const pageNumber = searchParams.get('page');
+    setCurrentPage(pageNumber ? parseInt(pageNumber) : 1);
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentPage, searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChangeSearchValue = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -52,6 +63,16 @@ function App() {
     await loadData(searchValue);
   };
 
+  const setActivePage = (pageNumberText: string | null) => {
+    const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
+    setCurrentPage(pageNumber);
+    navigate({
+      search: `?${createSearchParams({
+        page: pageNumber.toString(),
+      })}`,
+    });
+  };
+
   return (
     <>
       <ErrorBoundary>
@@ -60,8 +81,12 @@ function App() {
           onChange={handleChangeSearchValue}
           onSubmit={handleSubmit}
         />
-        <SearchResultsList data={animalsPagedResponse} />
+        <SearchResultsList
+          animalsResponseData={animalsPagedResponse}
+          setPage={setActivePage}
+        />
         <Loader loading={isLoading} />
+        <Outlet />
       </ErrorBoundary>
     </>
   );

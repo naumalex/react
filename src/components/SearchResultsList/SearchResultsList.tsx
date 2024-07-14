@@ -1,8 +1,10 @@
 import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
+import { Pagination } from '../Pagination/Pagination';
 import styles from './SearchResultsList.module.css';
 
 interface SerachResultsListProps {
-  data?: AnimalsPagedQueryResponse;
+  animalsResponseData: AnimalsPagedQueryResponse;
+  setPage: (pageNumber: string | null) => void;
 }
 
 export function SearchResultsList(props: SerachResultsListProps) {
@@ -35,7 +37,7 @@ export function SearchResultsList(props: SerachResultsListProps) {
   };
 
   const renderListItems = () => {
-    const listItems = props.data?.animals.map((animal) => {
+    const listItems = props.animalsResponseData?.animals.map((animal) => {
       return (
         <li key={animal.uid} className={styles.searchResultsListItem}>
           <div
@@ -64,6 +66,10 @@ export function SearchResultsList(props: SerachResultsListProps) {
         {renderListHeader()}
         {renderListItems()}
       </ul>
+      <Pagination
+        page={props.animalsResponseData.page}
+        setActivePage={props.setPage}
+      />
     </section>
   );
 }
