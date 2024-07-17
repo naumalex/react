@@ -62,7 +62,11 @@ export function SearchResultsList(props: SerachResultsListProps) {
   };
 
   const renderListItems = () => {
-    const listItems = props.animalsResponseData?.animals.map((animal) => {
+    const animals = props.animalsResponseData?.animals;
+    if (animals.length === 0) {
+      return <div>Animals not found</div>;
+    }
+    const listItems = animals.map((animal) => {
       return (
         <li
           key={animal.uid}
