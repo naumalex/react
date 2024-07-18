@@ -7,33 +7,7 @@
   width: 100%;
 }
 
-.searchResultsListItem {
-  display: flex;
-  width: 80%;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  border-radius: 8px;
-  min-height: 48px;
-  align-items: center;
-  background-color: #f5f7fd;
-  border: solid 1px #c5cce3;
-  margin: 8px auto;
-}
-
-.searchResultsListItemCell.colTwo,
-.searchResultsListItemCell.colThree {
-  flex: 0 0 150px;
-}
-
-.searchResultsListItemCell.colOne {
-  min-width: 180px;
-}
-
-.searchResultsListItemCell {
-  text-align: left;
-}
-
-.searchResultsListItem.header {
+.searchResultsItem.header {
   font-weight: bolder;
   background-color: #e9edfb;
 }

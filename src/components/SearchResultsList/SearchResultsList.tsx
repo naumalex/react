@@ -1,6 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Animal, AnimalsPagedQueryResponse } from '../../services/api';
+import { AnimalsPagedQueryResponse } from '../../services/api';
 import styles from './SearchResultsList.module.css';
+import itemStyles from '../SearchResultsItem/SearchResultsItem.module.css';
+import { SearchResultsItem } from '../SearchResultsItem/SearchResultsItem';
 
 interface SerachResultsListProps {
   animalsResponseData: AnimalsPagedQueryResponse;
@@ -9,16 +11,6 @@ interface SerachResultsListProps {
 
 export function SearchResultsList(props: SerachResultsListProps) {
   const navigate = useNavigate();
-
-  const getAnimalType = (animal: Animal) => {
-    const keysToSkip: Array<keyof Animal> = ['uid', 'name'];
-    return (Object.keys(animal) as Array<keyof Animal>)
-      .filter((typeKey) => animal[typeKey] && !keysToSkip.includes(typeKey))
-      .map((typeKey) =>
-        typeKey.replace(/([a-z])([A-Z])/, `$1 $2`).toLowerCase(),
-      )
-      .join(', ');
-  };
 
   const clickListHandler = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement) {
@@ -45,15 +37,15 @@ export function SearchResultsList(props: SerachResultsListProps) {
 
   const renderListHeader = () => {
     return (
-      <li className={`${styles.searchResultsListItem} ${styles.header}`}>
-        <div className={`${styles.searchResultsListItemCell} ${styles.colOne}`}>
+      <li className={`${itemStyles.searchResultsItem} ${styles.header}`}>
+        <div className={`${itemStyles.searchResultsItemCell} ${styles.colOne}`}>
           Name
         </div>
-        <div className={`${styles.searchResultsListItemCell} ${styles.colTwo}`}>
+        <div className={`${itemStyles.searchResultsItemCell} ${styles.colTwo}`}>
           Uid
         </div>
         <div
-          className={`${styles.searchResultsListItemCell} ${styles.colThree}`}
+          className={`${itemStyles.searchResultsItemCell} ${styles.colThree}`}
         >
           Type
         </div>
@@ -67,29 +59,7 @@ export function SearchResultsList(props: SerachResultsListProps) {
       return <div>Animals not found</div>;
     }
     const listItems = animals.map((animal) => {
-      return (
-        <li
-          key={animal.uid}
-          id={animal.uid}
-          className={styles.searchResultsListItem}
-        >
-          <div
-            className={`${styles.searchResultsListItemCell} ${styles.colOne}`}
-          >
-            {animal.name}
-          </div>
-          <div
-            className={`${styles.searchResultsListItemCell} ${styles.colTwo}`}
-          >
-            {animal.uid}
-          </div>
-          <div
-            className={`${styles.searchResultsListItemCell} ${styles.colThree}`}
-          >
-            {getAnimalType(animal)}
-          </div>
-        </li>
-      );
+      return <SearchResultsItem animal={animal} key={animal.uid} />;
     });
     return listItems;
   };
