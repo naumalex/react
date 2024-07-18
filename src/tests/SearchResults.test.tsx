@@ -6,11 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 const mockAnimalsPagedResponse = {
   page: {
     pageNumber: 0,
-    pageSize: 50,
-    numberOfElements: 2,
-    totalElements: 248,
-    totalPages: 5,
-    firstPage: true,
+    pageSize: 0,
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 0,
+    firstPage: false,
     lastPage: false,
   },
   animals: [
@@ -35,6 +35,19 @@ const mockAnimalsPagedResponse = {
   ],
 };
 
+const mockEmptyAnimalsPagedResponse = {
+  page: {
+    pageNumber: 0,
+    pageSize: 0,
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 0,
+    firstPage: false,
+    lastPage: false,
+  },
+  animals: [],
+};
+
 describe('Search Results', () => {
   it('Verify that the component renders the specified number of cards', () => {
     render(
@@ -48,5 +61,17 @@ describe('Search Results', () => {
     expect(itemsCountWithoutHeader).toEqual(
       mockAnimalsPagedResponse.animals.length,
     );
+  });
+
+  it('Check that an appropriate message is displayed if no cards are present', () => {
+    render(
+      <SearchResultsList
+        animalsResponseData={mockEmptyAnimalsPagedResponse}
+        setPage={() => {}}
+      />,
+      { wrapper: BrowserRouter },
+    );
+    const message = screen.getByText('Animals not found');
+    expect(message).not.throw;
   });
 });
