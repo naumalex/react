@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { SearchResultsList } from '../components/SearchResultsList/SearchResultsList';
 import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
 const mockAnimalsPagedResponse = {
   page: {
@@ -48,6 +49,12 @@ const mockEmptyAnimalsPagedResponse = {
   animals: [],
 };
 
+const clickListItem = async (uid: string) => {
+  const user = userEvent.setup();
+  const listItem = screen.getByText(uid);
+  await user.click(listItem);
+};
+
 describe('Search Results', () => {
   it('Verify that the component renders the specified number of cards', () => {
     render(
@@ -73,5 +80,22 @@ describe('Search Results', () => {
     );
     const message = screen.getByText('Animals not found');
     expect(message).not.throw;
+  });
+
+  it('Click item opens details', async () => {
+    render(
+      <SearchResultsList
+        animalsResponseData={mockAnimalsPagedResponse}
+        setPage={() => {}}
+      />,
+      {
+        wrapper: BrowserRouter,
+      },
+    );
+
+    await clickListItem(mockAnimalsPagedResponse.animals[0].uid);
+    expect(window.location.pathname).toBe(
+      `/details/${mockAnimalsPagedResponse.animals[0].uid}`,
+    );
   });
 });
