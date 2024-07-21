@@ -4,14 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { SearchResultsItem } from '../components/SearchResultsItem/SearchResultsItem';
 import { getAnimalType } from '../components/Utils';
 
-const mockAnimal = {
-  uid: 'ANMA0000262167',
-  name: 'Albatross',
-  earthAnimal: true,
+export const mockAnimal = {
+  uid: 'ANMA0000028280',
+  name: 'Berserker cat',
+  earthAnimal: false,
   earthInsect: false,
   avian: false,
   canine: false,
-  feline: false,
+  feline: true,
 };
 
 describe('Search Result Item', () => {
