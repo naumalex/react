@@ -23,6 +23,7 @@ export function AnimalDetails() {
       <div>{`Canine: ${animal.canine}`}</div>
       <div>{`Earth Animal: ${animal.earthAnimal}`}</div>
       <div>{`Earth Insect: ${animal.earthInsect}`}</div>
+      <div>{`Feline: ${animal.feline}`}</div>
       <Button onClick={handleCloseButtonClick}>Close</Button>
     </div>
   );
