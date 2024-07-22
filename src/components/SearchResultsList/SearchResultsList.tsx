@@ -37,7 +37,7 @@ export function SearchResultsList(props: SerachResultsListProps) {
 
   const renderListHeader = () => {
     return (
-      <li className={`${itemStyles.searchResultsItem} ${styles.header}`}>
+      <li className={`${itemStyles.searchResultsItem} ${itemStyles.header}`}>
         <div className={`${itemStyles.searchResultsItemCell} ${styles.colOne}`}>
           Name
         </div>

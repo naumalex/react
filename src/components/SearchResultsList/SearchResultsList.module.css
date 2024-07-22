@@ -6,8 +6,3 @@
 .searchResultsList {
   width: 100%;
 }
-
-.searchResultsItem.header {
-  font-weight: bolder;
-  background-color: #e9edfb;
-}
