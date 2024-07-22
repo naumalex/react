@@ -74,7 +74,6 @@ export class Api {
   static async getAnimal(uid: string): Promise<Animal> {
     const params = new URLSearchParams();
     params.set('uid', uid);
-    // const BASE_URL = 'https://stapi.co/api/v1/rest/animal';
     const res = await fetch(`${Api.BASE_URL}animal?${params}`, {
       method: 'GET',
       headers: {
