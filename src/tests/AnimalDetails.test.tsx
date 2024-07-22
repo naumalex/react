@@ -1,8 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { mockAnimal } from './SearchResultsItem.test';
 import { routes } from '../routes/router';
+import userEvent from '@testing-library/user-event';
 
 describe('Animal details panel', () => {
   it('Animals details panel renders the relevant details', async () => {
@@ -31,5 +37,19 @@ describe('Animal details panel', () => {
     expect(isEarthInsect).toBeTruthy();
     const isFeline = screen.getByText(`Feline: ${mockAnimal.feline}`);
     expect(isFeline).toBeTruthy();
+  });
+
+  it('Close button closes Details panel', async () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: [`/details/${mockAnimal.uid}/`],
+      initialIndex: 1,
+    });
+    render(<RouterProvider router={router} />);
+    await waitFor(() => {
+      const closeButton = screen.getByText('Close');
+      expect(closeButton).toBeInTheDocument();
+      userEvent.click(closeButton);
+    });
+    await waitForElementToBeRemoved(screen.getByText('Close'));
   });
 });
