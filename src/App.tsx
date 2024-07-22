@@ -15,6 +15,7 @@ import { Pagination } from './components/Pagination/Pagination';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
+  const [inputValue, setInputValue] = useState('');
   const [animalsPagedResponse, setAnimalsPagedResponse] =
     useState<AnimalsPagedQueryResponse>({
       animals: [],
@@ -29,23 +30,24 @@ function App() {
       },
     });
   const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchData() {
-      await loadData(searchValue, currentPage);
+    async function fetchData(page: number) {
+      await loadData(searchValue, page);
     }
-    const pageNumber = searchParams.get('page');
-    setCurrentPage(pageNumber ? parseInt(pageNumber) : 1);
-    fetchData();
-  }, [currentPage, searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+    const pageNumberText = searchParams.get('page');
+    const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
+    setCurrentPage(pageNumber);
+    fetchData(pageNumber);
+  }, [searchParams, searchValue]);
 
   const handleChangeSearchValue = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.trim());
+    setInputValue(event.target.value.trim());
   };
 
   const loadData = async (name: string, page: number = 0) => {
@@ -60,12 +62,14 @@ function App() {
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await loadData(searchValue);
+    setSearchValue(inputValue);
+    await loadData(inputValue);
   };
 
   const setActivePage = (pageNumberText: string | null) => {
     const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
     setCurrentPage(pageNumber);
+    setInputValue(searchValue);
     navigate({
       search: `?${createSearchParams({
         page: pageNumber.toString(),
@@ -77,7 +81,7 @@ function App() {
     <>
       <ErrorBoundary>
         <SearchBar
-          searchValue={searchValue}
+          searchValue={inputValue}
           onChange={handleChangeSearchValue}
           onSubmit={handleSubmit}
         />
