@@ -41,6 +41,7 @@ function App() {
     const pageNumberText = searchParams.get('page');
     const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
     setCurrentPage(pageNumber);
+    setInputValue(searchValue);
     fetchData(pageNumber);
   }, [searchParams, searchValue]);
 
