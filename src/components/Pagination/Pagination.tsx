@@ -10,7 +10,6 @@ interface PaginationProps {
 export function Pagination(props: PaginationProps) {
   const paginationNumbers = [];
   const pagesInfo = props.page;
-
   const clickPageButtonsHandler = (e: MouseEvent) => {
     if (e.target instanceof HTMLButtonElement) {
       props.setActivePage(e.target.textContent);
