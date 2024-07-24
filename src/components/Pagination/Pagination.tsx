@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { Page } from '../../services/api';
 import styles from './Pagination.module.css';
 
@@ -7,28 +7,30 @@ interface PaginationProps {
   setActivePage: (pageNumber: string | null) => void;
 }
 
-export function Pagination(props: PaginationProps) {
-  const paginationNumbers = [];
-  const pagesInfo = props.page;
+export function Pagination({ page, setActivePage }: PaginationProps) {
+  const pager = useMemo(
+    () => new Array(page.totalPages).fill(null),
+    [page.totalPages],
+  );
+
   const clickPageButtonsHandler = (e: MouseEvent) => {
     if (e.target instanceof HTMLButtonElement) {
-      props.setActivePage(e.target.textContent);
+      setActivePage(e.target.textContent);
     }
   };
 
-  for (let i = 1; i <= pagesInfo.totalPages; i++) {
-    paginationNumbers.push(i);
-  }
   return (
     <div className={styles.pagination} onClick={clickPageButtonsHandler}>
-      {paginationNumbers.map((pageNumber) => (
-        <button
-          key={pageNumber}
-          className={`${props.page.pageNumber + 1 === pageNumber ? styles.active : ''}`}
-        >
-          {pageNumber}
-        </button>
-      ))}
+      {pager.length > 1
+        ? pager.map((_, index) => (
+            <button
+              key={index + 1}
+              className={`${page.pageNumber === index ? styles.active : ''}`}
+            >
+              {index + 1}
+            </button>
+          ))
+        : null}
     </div>
   );
 }
