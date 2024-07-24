@@ -16,7 +16,7 @@ export function Pagination(props: PaginationProps) {
     }
   };
 
-  for (let i = 1; i < pagesInfo.totalPages; i++) {
+  for (let i = 1; i <= pagesInfo.totalPages; i++) {
     paginationNumbers.push(i);
   }
   return (
@@ -24,7 +24,7 @@ export function Pagination(props: PaginationProps) {
       {paginationNumbers.map((pageNumber) => (
         <button
           key={pageNumber}
-          className={`${props.page.pageNumber === pageNumber ? styles.active : ''}`}
+          className={`${props.page.pageNumber + 1 === pageNumber ? styles.active : ''}`}
         >
           {pageNumber}
         </button>

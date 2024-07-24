@@ -20,7 +20,7 @@ function App() {
     useState<AnimalsPagedQueryResponse>({
       animals: [],
       page: {
-        pageNumber: 1,
+        pageNumber: 0,
         pageSize: 0,
         numberOfElements: 0,
         totalElements: 0,
@@ -51,11 +51,11 @@ function App() {
     setInputValue(event.target.value.trim());
   };
 
-  const loadData = async (name: string, page: number = 0) => {
+  const loadData = async (name: string, page: number = 1) => {
     setIsLoading(true);
     const animals = await Api.getAnimals({
       filter: { name: name },
-      page: page,
+      page: page - 1,
     });
     setAnimalsPagedResponse(animals);
     setIsLoading(false);
