@@ -4,8 +4,8 @@ interface LoaderProps {
   loading: boolean;
 }
 
-export function Loader(props: LoaderProps) {
-  if (!props.loading) {
+export function Loader({ loading }: LoaderProps) {
+  if (!loading) {
     return null;
   }
   return (
