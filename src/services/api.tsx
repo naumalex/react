@@ -79,7 +79,7 @@ export class Api {
         accept: 'application/json',
       },
     });
-    const animal = await res.json();
-    return animal;
+    const animalObj = await res.json();
+    return animalObj.animal;
   }
 }

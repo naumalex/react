@@ -1,10 +1,11 @@
-import { useLoaderData, useNavigate } from 'react-router-dom';
-import { Animal as AnimalType } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 import styles from './AnimalDetails.module.css';
 import { Button } from '../Button';
+import { useTypedLoaderData } from '../../routes/useTypedLoaderData';
+import { animalLoader } from '../../routes/animalLoader';
 
 export function AnimalDetails() {
-  const { animal } = useLoaderData() as { animal: AnimalType };
+  const animal = useTypedLoaderData<typeof animalLoader>();
   const navigate = useNavigate();
 
   const handleCloseButtonClick = () => {
