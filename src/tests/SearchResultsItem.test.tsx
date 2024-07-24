@@ -5,13 +5,13 @@ import { SearchResultsItem } from '../components/SearchResultsItem/SearchResults
 import { getAnimalType } from '../components/Utils';
 
 export const mockAnimal = {
-  uid: 'ANMA0000028280',
-  name: 'Berserker cat',
-  earthAnimal: false,
+  uid: 'ANMA0000027729',
+  name: 'Alligator',
+  earthAnimal: true,
   earthInsect: false,
   avian: false,
   canine: false,
-  feline: true,
+  feline: false,
 };
 
 describe('Search Result Item', () => {

@@ -16,8 +16,8 @@ const mockAnimalsPagedResponse = {
   },
   animals: [
     {
-      uid: 'ANMA0000262167',
-      name: 'Albatross',
+      uid: 'ANMA0000264633',
+      name: 'Abalone',
       earthAnimal: true,
       earthInsect: false,
       avian: false,
