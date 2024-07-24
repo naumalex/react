@@ -19,15 +19,17 @@ describe('Search Button', () => {
     );
     const searchInput = screen.getByRole('textbox');
     const searchButton = screen.getByRole('button', { name: 'Search' });
-    await user.type(searchInput, 'Test1');
+    const searchText = 'a';
+    await user.type(searchInput, searchText);
     await user.click(searchButton);
     await waitFor(() => expect(setSearchValue).toHaveBeenCalled());
   });
 
   it('Check that the component retrieves the value from the local storage upon mounting', async () => {
-    localStorage.setItem('searchValue', 'Test 2');
+    const searchText = 'a';
+    localStorage.setItem('searchValue', searchText);
     render(<App />, { wrapper: BrowserRouter });
     const searchInput = screen.getByRole('textbox');
-    expect(searchInput).toHaveValue('Test 2');
+    expect(searchInput).toHaveValue(searchText);
   });
 });
