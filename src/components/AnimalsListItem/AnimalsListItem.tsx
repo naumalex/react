@@ -1,15 +1,14 @@
 import { Animal } from '../../services/api';
 import { getAnimalType } from '../Utils';
-import styles from './SearchResultsItem.module.css';
+import styles from '../ListItem/ListItem.module.css';
 
-export interface SearchResultsItemProps {
+export interface AnimalsListItemProps {
   animal: Animal;
 }
 
-export function SearchResultsItem(props: SearchResultsItemProps) {
-  const animal = props.animal;
+export function AnimalsListItem({ animal }: AnimalsListItemProps) {
   return (
-    <li key={animal.uid} id={animal.uid} className={styles.searchResultsItem}>
+    <>
       <div className={`${styles.searchResultsItemCell} ${styles.colOne}`}>
         {animal.name}
       </div>
@@ -19,6 +18,6 @@ export function SearchResultsItem(props: SearchResultsItemProps) {
       <div className={`${styles.searchResultsItemCell} ${styles.colThree}`}>
         {getAnimalType(animal)}
       </div>
-    </li>
+    </>
   );
 }

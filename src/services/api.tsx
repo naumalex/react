@@ -24,9 +24,9 @@ export interface Page {
   lastPage: boolean;
 }
 
-export interface AnimalsPagedQueryResponse {
+export interface PagedQueryResponse<T> {
   page: Page;
-  animals: Animal[];
+  animals: T[];
 }
 
 export class Api {

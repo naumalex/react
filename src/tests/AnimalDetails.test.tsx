@@ -6,7 +6,7 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { mockAnimal } from './SearchResultsItem.test';
+import { mockAnimal } from './AnimalListItem.test';
 import { routes } from '../routes/router';
 import userEvent from '@testing-library/user-event';
 

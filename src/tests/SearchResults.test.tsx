@@ -78,7 +78,7 @@ describe('Search Results', () => {
       />,
       { wrapper: BrowserRouter },
     );
-    const message = screen.getByText('Animals not found');
+    const message = screen.getByText('No data found');
     expect(message).not.throw;
   });
 

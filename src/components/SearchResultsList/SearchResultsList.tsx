@@ -1,15 +1,17 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AnimalsPagedQueryResponse } from '../../services/api';
+import { Animal, PagedQueryResponse } from '../../services/api';
 import styles from './SearchResultsList.module.css';
-import itemStyles from '../SearchResultsItem/SearchResultsItem.module.css';
-import { SearchResultsItem } from '../SearchResultsItem/SearchResultsItem';
+import { AnimalsListItems } from '../AnimalsListItems/AnimalsListItems';
+import { AnimalsListHeader } from '../AnimalsListHeader/AnimalsListHeader';
 
-interface SerachResultsListProps {
-  animalsResponseData: AnimalsPagedQueryResponse;
+interface SearchResultsListProps {
+  animalsResponseData: PagedQueryResponse<Animal>;
   setPage: (pageNumber: string | null) => void;
 }
 
-export function SearchResultsList(props: SerachResultsListProps) {
+export function SearchResultsList({
+  animalsResponseData,
+}: SearchResultsListProps) {
   const navigate = useNavigate();
 
   const clickListHandler = (e: React.MouseEvent) => {
@@ -35,39 +37,11 @@ export function SearchResultsList(props: SerachResultsListProps) {
     }
   };
 
-  const renderListHeader = () => {
-    return (
-      <li className={`${itemStyles.searchResultsItem} ${itemStyles.header}`}>
-        <div className={`${itemStyles.searchResultsItemCell} ${styles.colOne}`}>
-          Name
-        </div>
-        <div className={`${itemStyles.searchResultsItemCell} ${styles.colTwo}`}>
-          Uid
-        </div>
-        <div
-          className={`${itemStyles.searchResultsItemCell} ${styles.colThree}`}
-        >
-          Type
-        </div>
-      </li>
-    );
-  };
-
-  const renderListItems = () => {
-    const animals = props.animalsResponseData?.animals;
-    if (animals.length === 0) {
-      return <div>Animals not found</div>;
-    }
-    const listItems = animals.map((animal) => {
-      return <SearchResultsItem animal={animal} key={animal.uid} />;
-    });
-    return listItems;
-  };
   return (
     <section className={styles.searchResults}>
       <ul className={styles.searchResultsList} onClick={clickListHandler}>
-        {renderListHeader()}
-        {renderListItems()}
+        <AnimalsListHeader />
+        <AnimalsListItems data={animalsResponseData.animals} />
       </ul>
       <Outlet />
     </section>

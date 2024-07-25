@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
-import { SearchResultsItem } from '../components/SearchResultsItem/SearchResultsItem';
 import { getAnimalType } from '../components/Utils';
+import { AnimalsListItem } from '../components/AnimalsListItem/AnimalsListItem';
 
 export const mockAnimal = {
   uid: 'ANMA0000027729',
@@ -16,7 +16,7 @@ export const mockAnimal = {
 
 describe('Search Result Item', () => {
   it('Card component renders the relevant card data', () => {
-    render(<SearchResultsItem animal={mockAnimal} key={mockAnimal.uid} />, {
+    render(<AnimalsListItem animal={mockAnimal} key={mockAnimal.uid} />, {
       wrapper: BrowserRouter,
     });
     const uid = screen.getByText(mockAnimal.uid);
