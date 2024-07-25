@@ -16,19 +16,20 @@ import { Pagination } from './components/Pagination/Pagination';
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
   const [inputValue, setInputValue] = useState('');
+  const INITIAL_PAGE_RESPONSE = {
+    animals: [],
+    page: {
+      pageNumber: 0,
+      pageSize: 0,
+      numberOfElements: 0,
+      totalElements: 0,
+      totalPages: 0,
+      firstPage: false,
+      lastPage: false,
+    },
+  };
   const [animalsPagedResponse, setAnimalsPagedResponse] =
-    useState<AnimalsPagedQueryResponse>({
-      animals: [],
-      page: {
-        pageNumber: 0,
-        pageSize: 0,
-        numberOfElements: 0,
-        totalElements: 0,
-        totalPages: 0,
-        firstPage: false,
-        lastPage: false,
-      },
-    });
+    useState<AnimalsPagedQueryResponse>(INITIAL_PAGE_RESPONSE);
   const [isLoading, setIsLoading] = useState(false);
   const [, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
