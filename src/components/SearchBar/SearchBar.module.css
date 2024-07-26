@@ -1,0 +1,20 @@
+.searchForm {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+}
+
+.searchInput {
+  height: 38px;
+  border-radius: 8px;
+  font-size: larger;
+}
+
+.searchButton {
+  background-color: #0067b8;
+  color: white;
+  height: 44px;
+  text-align: center;
+  width: 100px;
+  padding: 0;
+}
