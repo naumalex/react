@@ -1,6 +1,6 @@
 import { MouseEvent, useMemo } from 'react';
-import { Page } from '../../services/api';
 import styles from './Pagination.module.css';
+import { Page } from '../../services/api.types';
 
 interface PaginationProps {
   page: Page;

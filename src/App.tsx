@@ -1,5 +1,4 @@
 import './App.css';
-import { AnimalsPagedQueryResponse, Api } from './services/api';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import React, { useEffect, useState } from 'react';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
@@ -12,6 +11,7 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { Pagination } from './components/Pagination/Pagination';
+import { useGetAnimalsQuery } from './services/animalApi';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
@@ -28,22 +28,19 @@ function App() {
       lastPage: false,
     },
   };
-  const [animalsPagedResponse, setAnimalsPagedResponse] =
-    useState<AnimalsPagedQueryResponse>(INITIAL_PAGE_RESPONSE);
-  const [isLoading, setIsLoading] = useState(false);
-  const [, setCurrentPage] = useState(1);
+  const [page, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  const { data, error, isLoading } = useGetAnimalsQuery({
+    page,
+    filter: { name: searchValue },
+  });
   useEffect(() => {
-    async function fetchData(page: number) {
-      await loadData(searchValue, page);
-    }
     const pageNumberText = searchParams.get('page');
     const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
     setCurrentPage(pageNumber);
     setInputValue(searchValue);
-    fetchData(pageNumber);
   }, [searchParams, searchValue]);
 
   const handleChangeSearchValue = (
@@ -52,20 +49,9 @@ function App() {
     setInputValue(event.target.value.trim());
   };
 
-  const loadData = async (name: string, page: number = 1) => {
-    setIsLoading(true);
-    const animals = await Api.getAnimals({
-      filter: { name: name },
-      page: page - 1,
-    });
-    setAnimalsPagedResponse(animals);
-    setIsLoading(false);
-  };
-
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchValue(inputValue);
-    await loadData(inputValue);
   };
 
   const setActivePage = (pageNumberText: string | null) => {
@@ -79,7 +65,11 @@ function App() {
     });
   };
 
-  return (
+  return error ? (
+    <>Oh no, there was an error</>
+  ) : isLoading ? (
+    <>Loading...</>
+  ) : data ? (
     <>
       <ErrorBoundary>
         <SearchBar
@@ -87,17 +77,14 @@ function App() {
           onChange={handleChangeSearchValue}
           onSubmit={handleSubmit}
         />
-        <SearchResultsList
-          animalsResponseData={animalsPagedResponse}
-          setPage={setActivePage}
-        />
+        <SearchResultsList animalsResponseData={data} setPage={setActivePage} />
         <Loader loading={isLoading} />
         <Pagination
-          page={animalsPagedResponse.page}
+          page={data?.page || INITIAL_PAGE_RESPONSE.page}
           setActivePage={setActivePage}
         />
       </ErrorBoundary>
     </>
-  );
+  ) : null;
 }
 export default App;

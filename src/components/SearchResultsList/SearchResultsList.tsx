@@ -1,11 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Animal, PagedQueryResponse } from '../../services/api';
 import styles from './SearchResultsList.module.css';
 import { AnimalsListItems } from '../AnimalsListItems/AnimalsListItems';
 import { AnimalsListHeader } from '../AnimalsListHeader/AnimalsListHeader';
+import { AnimalsPagedQueryResponse } from '../../services/api.types';
 
 interface SearchResultsListProps {
-  animalsResponseData: PagedQueryResponse<Animal>;
+  animalsResponseData: AnimalsPagedQueryResponse;
   setPage: (pageNumber: string | null) => void;
 }
 
@@ -13,7 +13,7 @@ export function SearchResultsList({
   animalsResponseData,
 }: SearchResultsListProps) {
   const navigate = useNavigate();
-
+  console.log(animalsResponseData);
   const clickListHandler = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement) {
       if (location.pathname.includes('details')) {
