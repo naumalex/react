@@ -3,6 +3,7 @@ import searchQuerySlice from './searchQuerySlice';
 import { animalApi } from '../services/animalApi';
 import cardSlice from './cardSlice';
 import currentPageCardsSlice from './currentPageCardsSlice';
+import selectedItemsSlice from './selectedItemsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     card: cardSlice,
     [animalApi.reducerPath]: animalApi.reducer,
     currentPageCards: currentPageCardsSlice,
+    selectedItems: selectedItemsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(animalApi.middleware),

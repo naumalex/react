@@ -2,7 +2,6 @@ import './App.css';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import React, { useEffect, useState } from 'react';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
-import { Loader } from './components/Loader/Loader';
 import { ErrorBoundary } from './components/Error-boundary';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import {
@@ -76,7 +75,6 @@ function App() {
           onSubmit={handleSubmit}
         />
         <SearchResultsList />
-        <Loader loading={isLoading} />
         <Pagination
           page={data?.page || INITIAL_PAGE_RESPONSE.page}
           setActivePage={setActivePage}
