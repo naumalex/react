@@ -13,7 +13,7 @@ export const animalApi = createApi({
   endpoints: (builder) => ({
     getAnimals: builder.query<AnimalsPagedQueryResponse, SearchAnimalParams>({
       query: (searchParams) => ({
-        url: `animal/search${buildQueryString((searchParams.page ? searchParams.page - 1 : 0)?.toString())}`,
+        url: `animal/search${buildQueryString((searchParams.page ? searchParams.page - 1 : 0)?.toString(), '10')}`,
         method: 'post',
         headers: {
           accept: 'application/json',

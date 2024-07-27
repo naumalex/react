@@ -3,6 +3,9 @@ import { describe, expect, it } from 'vitest';
 import { SearchResultsList } from '../components/SearchResultsList/SearchResultsList';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
+import { setCurrentPageCards } from '../store/currentPageCardsSlice';
 
 const mockAnimalsPagedResponse = {
   page: {
@@ -57,11 +60,11 @@ const clickListItem = async (uid: string) => {
 
 describe('Search Results', () => {
   it('Verify that the component renders the specified number of cards', () => {
+    store.dispatch(setCurrentPageCards(mockAnimalsPagedResponse));
     render(
-      <SearchResultsList
-        animalsResponseData={mockAnimalsPagedResponse}
-        setPage={() => {}}
-      />,
+      <Provider store={store}>
+        <SearchResultsList />
+      </Provider>,
       { wrapper: BrowserRouter },
     );
     const itemsCountWithoutHeader = screen.getAllByRole('listitem').length - 1;
@@ -71,11 +74,11 @@ describe('Search Results', () => {
   });
 
   it('Check that an appropriate message is displayed if no cards are present', () => {
+    store.dispatch(setCurrentPageCards(mockEmptyAnimalsPagedResponse));
     render(
-      <SearchResultsList
-        animalsResponseData={mockEmptyAnimalsPagedResponse}
-        setPage={() => {}}
-      />,
+      <Provider store={store}>
+        <SearchResultsList />
+      </Provider>,
       { wrapper: BrowserRouter },
     );
     const message = screen.getByText('No data found');
@@ -83,11 +86,11 @@ describe('Search Results', () => {
   });
 
   it('Click item opens details', async () => {
+    store.dispatch(setCurrentPageCards(mockAnimalsPagedResponse));
     render(
-      <SearchResultsList
-        animalsResponseData={mockAnimalsPagedResponse}
-        setPage={() => {}}
-      />,
+      <Provider store={store}>
+        <SearchResultsList />
+      </Provider>,
       {
         wrapper: BrowserRouter,
       },
