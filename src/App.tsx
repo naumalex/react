@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import { Pagination } from './components/Pagination/Pagination';
 import { useGetAnimalsQuery } from './services/animalApi';
+//import { useDispatch } from 'react-redux';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
@@ -31,17 +32,23 @@ function App() {
   const [page, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  //  const dispatch = useDispatch();
 
   const { data, error, isLoading } = useGetAnimalsQuery({
     page,
     filter: { name: searchValue },
   });
+
   useEffect(() => {
     const pageNumberText = searchParams.get('page');
     const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
     setCurrentPage(pageNumber);
     setInputValue(searchValue);
   }, [searchParams, searchValue]);
+
+  /* useEffect(() => {
+    dispatch(setCard(animalData));
+  }, [animalData])*/
 
   const handleChangeSearchValue = (
     event: React.ChangeEvent<HTMLInputElement>,

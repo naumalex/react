@@ -1,12 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './AnimalDetails.module.css';
 import { Button } from '../Button';
-import { useTypedLoaderData } from '../../routes/useTypedLoaderData';
-import { animalLoader } from '../../routes/animalLoader';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useGetAnimalQuery } from '../../services/animalApi';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { setCard } from '../../store/cardSlice';
 
 export function AnimalDetails() {
-  const animal = useTypedLoaderData<typeof animalLoader>();
+  const params = useParams();
+  const uid = params.id;
+  console.log(params);
   const navigate = useNavigate();
+  const { data, isLoading, error } = useGetAnimalQuery(uid);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCard(data?.animal));
+  }, [data, dispatch]);
 
   const handleCloseButtonClick = () => {
     navigate({
@@ -14,8 +25,13 @@ export function AnimalDetails() {
       search: location.search,
     });
   };
+  const animal = useSelector((state: RootState) => state.card);
 
-  return (
+  return error ? (
+    <>Oh no, there was an error</>
+  ) : isLoading ? (
+    <>Loading...</>
+  ) : animal ? (
     <div className={styles.animalDetails}>
       <h3>Animal Details</h3>
       <div>{`Name: ${animal.name}`}</div>
@@ -27,5 +43,5 @@ export function AnimalDetails() {
       <div>{`Feline: ${animal.feline}`}</div>
       <Button onClick={handleCloseButtonClick}>Close</Button>
     </div>
-  );
+  ) : null;
 }

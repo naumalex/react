@@ -1,6 +1,5 @@
 import App from '../App';
 import { AnimalDetails } from '../components/AnimalDetails/AnimalDetails';
-import { animalLoader } from './animalLoader';
 
 export const routes = [
   {
@@ -10,7 +9,6 @@ export const routes = [
       {
         path: 'details/:id',
         element: <AnimalDetails />,
-        loader: animalLoader,
       },
     ],
   },

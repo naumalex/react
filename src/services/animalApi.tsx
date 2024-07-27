@@ -1,7 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../utils/constants';
 import { buildBody, buildQueryString } from './api.helpers';
-import { AnimalsPagedQueryResponse, SearchAnimalParams } from './api.types';
+import {
+  Animal,
+  AnimalsPagedQueryResponse,
+  SearchAnimalParams,
+} from './api.types';
 
 export const animalApi = createApi({
   reducerPath: 'animalApi',
@@ -18,7 +22,10 @@ export const animalApi = createApi({
         body: buildBody(searchParams.filter),
       }),
     }),
+    getAnimal: builder.query<{ animal: Animal }, string | undefined>({
+      query: (uid) => `animal?uid=${uid}`,
+    }),
   }),
 });
 
-export const { useGetAnimalsQuery } = animalApi;
+export const { useGetAnimalsQuery, useGetAnimalQuery } = animalApi;
