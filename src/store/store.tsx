@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchQuerySlice from './searchQuerySlice';
 import { animalApi } from '../services/animalApi';
 import cardSlice from './cardSlice';
+import currentPageCardsSlice from './currentPageCardsSlice';
 
 export const store = configureStore({
   reducer: {
     searchQuery: searchQuerySlice,
     card: cardSlice,
     [animalApi.reducerPath]: animalApi.reducer,
+    currentPageCards: currentPageCardsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(animalApi.middleware),

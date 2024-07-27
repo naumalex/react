@@ -11,7 +11,6 @@ import { setCard } from '../../store/cardSlice';
 export function AnimalDetails() {
   const params = useParams();
   const uid = params.id;
-  console.log(params);
   const navigate = useNavigate();
   const { data, isLoading, error } = useGetAnimalQuery(uid);
   const dispatch = useDispatch();

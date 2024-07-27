@@ -12,27 +12,19 @@ import {
 } from 'react-router-dom';
 import { Pagination } from './components/Pagination/Pagination';
 import { useGetAnimalsQuery } from './services/animalApi';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setCurrentPageCards } from './store/currentPageCardsSlice';
+import { INITIAL_PAGE_RESPONSE } from './utils/constants';
+import { getPageFromUrl } from './components/Utils';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
   const [inputValue, setInputValue] = useState('');
-  const INITIAL_PAGE_RESPONSE = {
-    animals: [],
-    page: {
-      pageNumber: 0,
-      pageSize: 0,
-      numberOfElements: 0,
-      totalElements: 0,
-      totalPages: 0,
-      firstPage: false,
-      lastPage: false,
-    },
-  };
+
   const [page, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  //  const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { data, error, isLoading } = useGetAnimalsQuery({
     page,
@@ -40,15 +32,14 @@ function App() {
   });
 
   useEffect(() => {
-    const pageNumberText = searchParams.get('page');
-    const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
+    const pageNumber = getPageFromUrl(searchParams);
     setCurrentPage(pageNumber);
     setInputValue(searchValue);
   }, [searchParams, searchValue]);
 
-  /* useEffect(() => {
-    dispatch(setCard(animalData));
-  }, [animalData])*/
+  useEffect(() => {
+    dispatch(setCurrentPageCards(data));
+  }, [data, dispatch]);
 
   const handleChangeSearchValue = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -84,7 +75,7 @@ function App() {
           onChange={handleChangeSearchValue}
           onSubmit={handleSubmit}
         />
-        <SearchResultsList animalsResponseData={data} setPage={setActivePage} />
+        <SearchResultsList />
         <Loader loading={isLoading} />
         <Pagination
           page={data?.page || INITIAL_PAGE_RESPONSE.page}

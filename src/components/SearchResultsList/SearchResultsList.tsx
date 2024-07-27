@@ -2,18 +2,14 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './SearchResultsList.module.css';
 import { AnimalsListItems } from '../AnimalsListItems/AnimalsListItems';
 import { AnimalsListHeader } from '../AnimalsListHeader/AnimalsListHeader';
-import { AnimalsPagedQueryResponse } from '../../services/api.types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
-interface SearchResultsListProps {
-  animalsResponseData: AnimalsPagedQueryResponse;
-  setPage: (pageNumber: string | null) => void;
-}
-
-export function SearchResultsList({
-  animalsResponseData,
-}: SearchResultsListProps) {
+export function SearchResultsList() {
   const navigate = useNavigate();
-  console.log(animalsResponseData);
+  const animalsResponseData = useSelector(
+    (state: RootState) => state.currentPageCards,
+  );
   const clickListHandler = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement) {
       if (location.pathname.includes('details')) {
@@ -37,7 +33,7 @@ export function SearchResultsList({
     }
   };
 
-  return (
+  return animalsResponseData ? (
     <section className={styles.searchResults}>
       <ul className={styles.searchResultsList} onClick={clickListHandler}>
         <AnimalsListHeader />
@@ -45,5 +41,5 @@ export function SearchResultsList({
       </ul>
       <Outlet />
     </section>
-  );
+  ) : null;
 }
