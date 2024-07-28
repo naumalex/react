@@ -1,6 +1,7 @@
 import { MouseEvent, useMemo } from 'react';
 import styles from './Pagination.module.css';
 import { Page } from '../../services/api.types';
+import { Button } from '../Button/Button';
 
 interface PaginationProps {
   page: Page;
@@ -23,12 +24,12 @@ export function Pagination({ page, setActivePage }: PaginationProps) {
     <div className={styles.pagination} onClick={clickPageButtonsHandler}>
       {pager.length > 1
         ? pager.map((_, index) => (
-            <button
+            <Button
               key={index + 1}
-              className={`${page.pageNumber === index ? styles.active : ''}`}
+              className={`${page.pageNumber === index ? styles.active + ' ' : ''} ${styles.paginationButton}`}
             >
-              {index + 1}
-            </button>
+              {(index + 1).toString()}
+            </Button>
           ))
         : null}
     </div>

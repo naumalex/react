@@ -2,3 +2,15 @@
   border: 2px solid blue;
   outline: none;
 }
+
+.paginationButton {
+  padding: 5px;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}

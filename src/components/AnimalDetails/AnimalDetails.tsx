@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './AnimalDetails.module.css';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useGetAnimalQuery } from '../../services/animalApi';

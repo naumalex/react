@@ -3,6 +3,7 @@ import styles from './FlyOut.module.css';
 import { RootState } from '../../store/store';
 import { buildCSVFile } from './FlyOut.helpers';
 import { removeAllSelectedItems } from '../../store/selectedItemsSlice';
+import { Button } from '../Button/Button';
 
 export function FlyOut() {
   const handleUnselectAllButton = () => {
@@ -12,12 +13,19 @@ export function FlyOut() {
   const selectedItems = useSelector((state: RootState) => state.selectedItems);
   const selectedItemsCount = selectedItems.length;
   return selectedItemsCount > 0 ? (
-    <form className={styles.flyOut}>
+    <div className={styles.flyOut}>
       <div>Selected {selectedItemsCount} items</div>
-      <a className={'downloadButton'} href={buildCSVFile(selectedItems)}>
-        Download
-      </a>
-      <button onClick={handleUnselectAllButton}>Unselect All</button>
-    </form>
+      <div className={styles.buttonsContainer}>
+        <Button>
+          <a
+            className={styles.downloadButton}
+            href={buildCSVFile(selectedItems)}
+          >
+            Download
+          </a>
+        </Button>
+        <Button onClick={handleUnselectAllButton}>Unselect All</Button>
+      </div>
+    </div>
   ) : null;
 }
