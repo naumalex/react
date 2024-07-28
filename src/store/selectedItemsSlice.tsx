@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Animal } from '../services/api.types';
 
 const selectedItemsSlice = createSlice({
   name: 'selectedItems',
-  initialState: new Array<string>(),
+  initialState: new Array<Animal>(),
   reducers: {
     addSelectedItem(state, action) {
       console.log('Add');

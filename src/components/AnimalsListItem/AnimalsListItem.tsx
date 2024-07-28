@@ -17,13 +17,9 @@ export function AnimalsListItem({ animal }: AnimalsListItemProps) {
     e.stopPropagation();
     const checkbox = e.target;
     if (checkbox instanceof HTMLInputElement) {
-      const id = checkbox.closest('li')?.getAttribute('id');
-      if (id) {
-        console.log('Click checkbox');
-        checkbox.checked
-          ? dispatch(addSelectedItem(id))
-          : dispatch(removeSelectItem(id));
-      }
+      checkbox.checked
+        ? dispatch(addSelectedItem(animal))
+        : dispatch(removeSelectItem(animal));
     }
   };
   const dispatch = useDispatch();
