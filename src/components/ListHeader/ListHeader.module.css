@@ -2,3 +2,7 @@
     font-weight: bolder;
     background-color: #e9edfb;
   }
+
+  .dark {
+    background-color: transparent;
+  }

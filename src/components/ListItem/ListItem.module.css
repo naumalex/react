@@ -11,6 +11,10 @@
     margin: 8px auto;
   }
   
+  .dark {
+    background-color: #1E1E1E;
+  }
+
   .searchResultsItemCell.colTwo,
   .searchResultsItemCell.colThree {
     flex: 0 0 150px;

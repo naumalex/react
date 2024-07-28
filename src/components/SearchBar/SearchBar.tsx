@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Input } from '../Input';
 import { Button } from '../Button/Button';
 import styles from './SearchBar.module.css';
+import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 export type EventHandler<T> = (event: React.ChangeEvent<T>) => void;
 
@@ -28,6 +30,7 @@ export function SearchBar(props: SearchBarProps) {
     generateError();
     setIsError(false);
   }
+  const { isDarkTheme } = useContext(ThemeContext);
   return (
     <section>
       <form className={styles.searchForm} onSubmit={props.onSubmit}>
@@ -37,15 +40,21 @@ export function SearchBar(props: SearchBarProps) {
           value={props.searchValue}
           onChange={props.onChange}
         />
-        <Button className={styles.searchButton} type="submit">
+        <Button
+          className={`${styles.searchButton} ${isDarkTheme ? styles.dark : styles.light}`}
+          type="submit"
+        >
           Search
         </Button>
         <Button
-          className={styles.searchButton}
+          className={`${styles.searchButton} ${isDarkTheme ? styles.dark : styles.light}`}
           onClick={handleClickErrorButton}
         >
           Error
         </Button>
+        <ThemeSwitcher
+          className={`${styles.searchButton} ${isDarkTheme ? styles.dark : styles.light}`}
+        />
       </form>
     </section>
   );
