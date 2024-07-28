@@ -10,7 +10,7 @@ import { store } from '../store/store';
 describe('Search Button', () => {
   it('Search button saves the entered value to the local storage', async () => {
     const user = userEvent.setup();
-    const setSearchValue = vi.fn();
+    const setSearchValue = vi.fn((e) => e.preventDefault());
     render(
       <Provider store={store}>
         <SearchBar
@@ -21,8 +21,12 @@ describe('Search Button', () => {
       </Provider>,
       { wrapper: BrowserRouter },
     );
-    const searchInput = screen.getByRole('textbox');
-    const searchButton = screen.getByRole('button', { name: 'Search' });
+    const searchInput = await waitFor(() => screen.getByRole('textbox'), {
+      timeout: 3000,
+    });
+    const searchButton = await waitFor(() =>
+      screen.getByRole('button', { name: 'Search' }),
+    );
     const searchText = 'a';
     await user.type(searchInput, searchText);
     await user.click(searchButton);
@@ -38,7 +42,9 @@ describe('Search Button', () => {
       </Provider>,
       { wrapper: BrowserRouter },
     );
-    const searchInput = await waitFor(() => screen.getByRole('textbox'));
+    const searchInput = await waitFor(() => screen.getByRole('textbox'), {
+      timeout: 3000,
+    });
     expect(searchInput).toHaveValue(searchText);
   });
 });

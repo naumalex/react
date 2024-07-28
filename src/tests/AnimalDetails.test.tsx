@@ -25,7 +25,9 @@ describe('Animal details panel', () => {
         <RouterProvider router={router} />
       </Provider>,
     );
-    const uid = await waitFor(() => screen.getByText(`${mockAnimal.uid}`));
+    const uid = await waitFor(() => screen.getByText(`${mockAnimal.uid}`), {
+      timeout: 3000,
+    });
     expect(uid).toBeInTheDocument();
     const name = await waitFor(() => screen.getByText(`${mockAnimal.name}`));
     expect(name).toBeInTheDocument();

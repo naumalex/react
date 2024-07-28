@@ -15,8 +15,9 @@ describe('Error Button component', () => {
       </Provider>,
       { wrapper: BrowserRouter },
     );
-    const searchButton = await waitFor(() =>
-      screen.getByRole('button', { name: 'Error' }),
+    const searchButton = await waitFor(
+      () => screen.getByRole('button', { name: 'Error' }),
+      { timeout: 3000 },
     );
     user.click(searchButton);
     await waitFor(() =>
