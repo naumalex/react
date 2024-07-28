@@ -24,8 +24,7 @@ export function AnimalsListItem({ animal }: AnimalsListItemProps) {
   };
   const dispatch = useDispatch();
   const isSelected = useSelector((state: RootState) => {
-    const id = animal.uid;
-    return state.selectedItems.includes(id);
+    return state.selectedItems.includes(animal);
   });
   return (
     <>
@@ -33,7 +32,8 @@ export function AnimalsListItem({ animal }: AnimalsListItemProps) {
         <input
           type="checkbox"
           onClick={checkboxClickhandler}
-          defaultChecked={isSelected}
+          checked={isSelected}
+          readOnly
         />
       </div>
       <div className={`${styles.searchResultsItemCell} ${styles.colOne}`}>
