@@ -1,0 +1,32 @@
+.searchResultsItem {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    min-height: 48px;
+    align-items: center;
+    background-color: #f5f7fd;
+    border: solid 1px #c5cce3;
+    margin: 8px auto;
+  }
+  
+  .dark {
+    background-color: #1E1E1E;
+  }
+
+  .searchResultsItemCell.colTwo,
+  .searchResultsItemCell.colThree {
+    flex: 0 0 150px;
+  }
+  
+  .searchResultsItemCell.colOne {
+    min-width: 180px;
+  }
+  
+  .searchResultsItemCell {
+    text-align: left;
+  }
+
+  
+  

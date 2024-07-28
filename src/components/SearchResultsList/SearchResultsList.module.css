@@ -1,0 +1,8 @@
+.searchResults {
+  width: 100%;
+  display: flex;
+}
+
+.searchResultsList {
+  width: 100%;
+}
