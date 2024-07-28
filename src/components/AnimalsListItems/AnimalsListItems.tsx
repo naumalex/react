@@ -1,6 +1,6 @@
-import { Animal } from '../../services/api';
 import { ListItemsProps, ListItems } from '../ListItems/ListItems';
 import { AnimalsListItem } from '../AnimalsListItem/AnimalsListItem';
+import { Animal } from '../../services/api.types';
 export type AnimalListItemsProps = Pick<ListItemsProps<Animal>, 'data'>;
 
 export function AnimalsListItems({ data }: AnimalListItemsProps) {

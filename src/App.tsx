@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { setCurrentPageCards } from './store/currentPageCardsSlice';
 import { INITIAL_PAGE_RESPONSE } from './utils/constants';
 import { getPageFromUrl } from './components/Utils';
+import { FlyOut } from './components/FlyOut/FlyOut';
 
 function App() {
   const [searchValue, setSearchValue] = useLocalStorage();
@@ -79,6 +80,7 @@ function App() {
           page={data?.page || INITIAL_PAGE_RESPONSE.page}
           setActivePage={setActivePage}
         />
+        <FlyOut />
       </ErrorBoundary>
     </>
   ) : null;
