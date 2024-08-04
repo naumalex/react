@@ -1,10 +1,10 @@
-import App from '../App';
 import { AnimalDetails } from '../components/AnimalDetails/AnimalDetails';
+import { Root } from '../components/Root/Root';
 
 export const routes = [
   {
     path: '/',
-    element: <App />,
+    element: <Root />,
     children: [
       {
         path: 'details/:id',

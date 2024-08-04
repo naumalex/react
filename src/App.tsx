@@ -1,13 +1,16 @@
 import './App.css';
 import { ErrorBoundary } from './components/Error-boundary';
 import { ThemeProvider } from './components/ThemeProvider/ThemeProvider';
-import { Root } from './components/Root/Root';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { routes } from './routes/router';
+
+const router = createBrowserRouter(routes);
 
 function App() {
   return (
     <ThemeProvider>
       <ErrorBoundary>
-        <Root />
+        <RouterProvider router={router} />
       </ErrorBoundary>
     </ThemeProvider>
   );
