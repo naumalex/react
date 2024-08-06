@@ -10,6 +10,11 @@
     border: solid 1px #c5cce3;
     margin: 8px auto;
   }
+
+  .searchResultsItem:hover {
+    cursor:pointer;
+    background-color: #c5cce3;
+  }
   
   .dark {
     background-color: #1E1E1E;

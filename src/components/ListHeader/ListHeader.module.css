@@ -3,6 +3,10 @@
     background-color: #e9edfb;
   }
 
+  .listHeader:hover {
+    cursor: default;
+  }
+
   .dark {
     background-color: transparent;
   }
