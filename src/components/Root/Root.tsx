@@ -4,26 +4,27 @@ import { Pagination } from '../Pagination/Pagination';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResultsList } from '../SearchResultsList/SearchResultsList';
 import { INITIAL_PAGE_RESPONSE } from '../../utils/constants';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useGetAnimalsQuery } from '../../services/animalApi';
 import { getPageFromUrl } from '../Utils';
 import { setCurrentPageCards } from '../../store/currentPageCardsSlice';
 import styles from './Root.module.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useLocalStorage from 'src/hooks/useLocalStorage';
+import PropTypes from 'prop-types';
 
-export function Root() {
+Root.propTypes = {
+  children: PropTypes.node,
+};
+
+export function Root({ children }) {
   const [searchValue, setSearchValue] = useLocalStorage();
   const [inputValue, setInputValue] = useState('');
-
   const [page, setCurrentPage] = useState(1);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const dispatch = useDispatch();
   const { isDarkTheme } = useContext(ThemeContext);
 
@@ -35,7 +36,7 @@ export function Root() {
   useEffect(() => {
     const pageNumber = getPageFromUrl(searchParams);
     setCurrentPage(pageNumber);
-    setInputValue(searchValue);
+    setInputValue(searchValue || '');
   }, [searchParams, searchValue]);
 
   useEffect(() => {
@@ -51,17 +52,17 @@ export function Root() {
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchValue(inputValue);
+    router.replace('/');
   };
 
   const setActivePage = (pageNumberText: string | null) => {
+    console.log('set active page');
     const pageNumber = pageNumberText ? parseInt(pageNumberText) : 1;
     setCurrentPage(pageNumber);
-    setInputValue(searchValue);
-    navigate({
-      search: `?${createSearchParams({
-        page: pageNumber.toString(),
-      })}`,
-    });
+    setInputValue(searchValue || '');
+    const newParams = new URLSearchParams(searchParams?.toString());
+    newParams.set('page', pageNumber.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
   };
   return (
     <div
@@ -80,7 +81,7 @@ export function Root() {
               onChange={handleChangeSearchValue}
               onSubmit={handleSubmit}
             />
-            <SearchResultsList />
+            <SearchResultsList>{children}</SearchResultsList>
             <Pagination
               page={data?.page || INITIAL_PAGE_RESPONSE.page}
               setActivePage={setActivePage}

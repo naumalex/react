@@ -1,19 +1,21 @@
 import './App.css';
 import { ErrorBoundary } from './components/Error-boundary';
 import { ThemeProvider } from './components/ThemeProvider/ThemeProvider';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { routes } from './routes/router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { Root } from './components/Root/Root';
+import PropTypes from 'prop-types';
 
-const router = createBrowserRouter(routes);
+App.propTypes = {
+  children: PropTypes.node,
+};
 
-function App() {
+function App({ children }) {
   return (
     <Provider store={store}>
       <ThemeProvider>
         <ErrorBoundary>
-          <RouterProvider router={router} />
+          <Root>{children}</Root>
         </ErrorBoundary>
       </ThemeProvider>
     </Provider>

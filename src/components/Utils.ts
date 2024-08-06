@@ -1,3 +1,4 @@
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { Animal } from '../services/api.types';
 
 export const getAnimalType = (animal: Animal) => {
@@ -8,8 +9,10 @@ export const getAnimalType = (animal: Animal) => {
     .join(', ');
 };
 
-export const getPageFromUrl = (searchParams: URLSearchParams) => {
-  const pageNumberText = searchParams.get('page');
+export const getPageFromUrl = (
+  searchParams: ReadonlyURLSearchParams | null,
+) => {
+  const pageNumberText = searchParams?.get('page');
   const page = pageNumberText ? parseInt(pageNumberText) : 1;
   return page;
 };

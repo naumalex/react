@@ -1,33 +1,30 @@
-import { useNavigate } from 'react-router-dom';
 import styles from './AnimalDetails.module.css';
 import { Button } from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useGetAnimalQuery } from '../../services/animalApi';
-import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setCard } from '../../store/cardSlice';
+import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 export function AnimalDetails() {
-  const params = useParams();
-  const uid = params.id;
-  const navigate = useNavigate();
+  const { id: uid } = useParams<{ id: string }>() || {};
+  const router = useRouter();
   const { data, isLoading, error } = useGetAnimalQuery(uid);
+  console.log(`uid ${uid}`);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCard(data?.animal));
   }, [data, dispatch]);
 
   const handleCloseButtonClick = () => {
-    navigate({
-      pathname: '/',
-      search: location.search,
-    });
+    router.push(`/${location.search}`);
   };
   const animal = useSelector((state: RootState) => state.card);
 
   return error ? (
-    <>Oh no, there was an error</>
+    <>Oh no, there was an error {error}</>
   ) : isLoading ? (
     <>Loading...</>
   ) : animal ? (
