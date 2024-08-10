@@ -1,24 +1,22 @@
 import './App.css';
 import { ErrorBoundary } from './components/Error-boundary';
 import { ThemeProvider } from './components/ThemeProvider/ThemeProvider';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
 import { Root } from './components/Root/Root';
-import PropTypes from 'prop-types';
+import { StoreProvider } from './store/StoreProvider';
 
-App.propTypes = {
-  children: PropTypes.node,
-};
+interface AppProps {
+  children?: React.ReactNode;
+}
 
-function App({ children }) {
+function App({ children }: AppProps) {
   return (
-    <Provider store={store}>
+    <StoreProvider>
       <ThemeProvider>
         <ErrorBoundary>
           <Root>{children}</Root>
         </ErrorBoundary>
       </ThemeProvider>
-    </Provider>
+    </StoreProvider>
   );
 }
 export default App;

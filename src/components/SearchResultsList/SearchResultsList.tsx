@@ -4,13 +4,12 @@ import { AnimalsListHeader } from '../AnimalsListHeader/AnimalsListHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useRouter } from 'next/navigation';
-import PropTypes from 'prop-types';
 
-SearchResultsList.propTypes = {
-  children: PropTypes.node,
-};
+interface SearchResultsListProps {
+  children?: React.ReactNode;
+}
 
-export function SearchResultsList({ children }) {
+export function SearchResultsList({ children }: SearchResultsListProps) {
   const router = useRouter();
   const animalsResponseData = useSelector(
     (state: RootState) => state.currentPageCards,
