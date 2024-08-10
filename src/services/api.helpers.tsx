@@ -15,7 +15,7 @@ export function buildBody(filter?: Partial<Animal>): string {
   if (!filter) {
     return '';
   }
-  const body = [];
+  const body: string[] = [];
   let key: keyof Partial<Animal>;
   for (key in filter) {
     if (key && filter[key]) {
