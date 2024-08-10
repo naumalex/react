@@ -1,12 +1,15 @@
+import { useRouter } from 'next/router';
 import App from 'src/App';
 import { AnimalDetails } from 'src/components/AnimalDetails/AnimalDetails';
 
-const Animal = () => {
+const Page = () => {
+  const router = useRouter();
+  const id: string = router.query.id?.toString() || '';
   return (
     <App>
-      <AnimalDetails />
+      <AnimalDetails uid={id} />
     </App>
   );
 };
 
-export default Animal;
+export default Page;

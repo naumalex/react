@@ -1,3 +1,4 @@
+'use client';
 import styles from './AnimalDetails.module.css';
 import { Button } from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,12 +6,13 @@ import { RootState } from '../../store/store';
 import { useGetAnimalQuery } from '../../services/animalApi';
 import { useEffect } from 'react';
 import { setCard } from '../../store/cardSlice';
-import { useRouter } from 'next/router';
-import { useParams } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
-export function AnimalDetails() {
-  const { id: uid } = useParams<{ id: string }>() || {};
-  const router = useRouter();
+interface AnimalDetailsProps {
+  uid: string;
+}
+
+export function AnimalDetails({ uid }: AnimalDetailsProps) {
   const { data, isLoading, error } = useGetAnimalQuery(uid);
   console.log(`uid ${uid}`);
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ export function AnimalDetails() {
   }, [data, dispatch]);
 
   const handleCloseButtonClick = () => {
-    router.push(`/${location.search}`);
+    redirect(`/${location.search}`);
   };
   const animal = useSelector((state: RootState) => state.card);
 
