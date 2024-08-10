@@ -1,3 +1,4 @@
+'use client';
 import { useContext, useEffect, useState } from 'react';
 import { FlyOut } from '../FlyOut/FlyOut';
 import { Pagination } from '../Pagination/Pagination';
@@ -12,13 +13,12 @@ import styles from './Root.module.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useLocalStorage from 'src/hooks/useLocalStorage';
-import PropTypes from 'prop-types';
 
-Root.propTypes = {
-  children: PropTypes.node,
-};
+interface RootProps {
+  children?: React.ReactNode;
+}
 
-export function Root({ children }) {
+export function Root({ children }: RootProps) {
   const [searchValue, setSearchValue] = useLocalStorage();
   const [inputValue, setInputValue] = useState('');
   const [page, setCurrentPage] = useState(1);

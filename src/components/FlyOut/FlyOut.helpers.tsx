@@ -1,8 +1,8 @@
 import { Animal } from '../../services/api.types';
 
 export const buildCSVFile = (animals: Animal[]) => {
-  const titleKeys = Object.keys(animals[0]);
-  const data = [];
+  const titleKeys: string[] = Object.keys(animals[0]);
+  const data: string[][] = [];
   data.push(titleKeys);
   animals.forEach((animal) => data.push(Object.values(animal)));
   const csvContent = data.reduce((content, row) => {

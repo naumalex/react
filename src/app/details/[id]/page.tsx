@@ -1,12 +1,10 @@
 import App from 'src/App';
 import { AnimalDetails } from 'src/components/AnimalDetails/AnimalDetails';
 
-const Animal = () => {
+export default function Page({ params }: { params: { id: string } }) {
   return (
     <App>
-      <AnimalDetails />
+      <AnimalDetails uid={params.id} />
     </App>
   );
-};
-
-export default Animal;
+}
