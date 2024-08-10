@@ -10,13 +10,13 @@ interface AppProps {
 
 function App({ children }: AppProps) {
   return (
-    <Provider store={store}>
+    <StoreProvider>
       <ThemeProvider>
         <ErrorBoundary>
           <Root>{children}</Root>
         </ErrorBoundary>
       </ThemeProvider>
-    </Provider>
+    </StoreProvider>
   );
 }
 export default App;
