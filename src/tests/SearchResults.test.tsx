@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { SearchResultsList } from '../components/SearchResultsList/SearchResultsList';
-import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 import { setCurrentPageCards } from '../store/currentPageCardsSlice';
+
+import { createMockRouter } from '../testUtils/createMockRouter';
+import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const mockAnimalsPagedResponse = {
   page: {
@@ -62,10 +64,11 @@ describe('Search Results', () => {
   it('Verify that the component renders the specified number of cards', () => {
     store.dispatch(setCurrentPageCards(mockAnimalsPagedResponse));
     render(
-      <Provider store={store}>
-        <SearchResultsList />
-      </Provider>,
-      { wrapper: BrowserRouter },
+      <AppRouterContext.Provider value={createMockRouter({})}>
+        <Provider store={store}>
+          <SearchResultsList />
+        </Provider>
+      </AppRouterContext.Provider>,
     );
     const itemsCountWithoutHeader = screen.getAllByRole('listitem').length - 1;
     expect(itemsCountWithoutHeader).toEqual(
@@ -77,9 +80,10 @@ describe('Search Results', () => {
     store.dispatch(setCurrentPageCards(mockEmptyAnimalsPagedResponse));
     render(
       <Provider store={store}>
-        <SearchResultsList />
+        <AppRouterContext.Provider value={createMockRouter({})}>
+          <SearchResultsList />
+        </AppRouterContext.Provider>
       </Provider>,
-      { wrapper: BrowserRouter },
     );
     const message = screen.getByText('No data found');
     expect(message).not.throw;
@@ -87,18 +91,24 @@ describe('Search Results', () => {
 
   it('Click item opens details', async () => {
     store.dispatch(setCurrentPageCards(mockAnimalsPagedResponse));
+    let detailsUrl: string = '';
     render(
       <Provider store={store}>
-        <SearchResultsList />
+        <AppRouterContext.Provider
+          value={createMockRouter({
+            push: (url: string) => {
+              detailsUrl = url;
+            },
+          })}
+        >
+          <SearchResultsList />
+        </AppRouterContext.Provider>
       </Provider>,
-      {
-        wrapper: BrowserRouter,
-      },
     );
 
     await clickListItem(mockAnimalsPagedResponse.animals[0].uid);
-    expect(window.location.pathname).toBe(
-      `/details/${mockAnimalsPagedResponse.animals[0].uid}`,
+    expect(detailsUrl).toBe(
+      `details/${mockAnimalsPagedResponse.animals[0].uid}/`,
     );
   });
 });
