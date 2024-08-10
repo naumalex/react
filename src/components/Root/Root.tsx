@@ -12,7 +12,7 @@ import { setCurrentPageCards } from '../../store/currentPageCardsSlice';
 import styles from './Root.module.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import useLocalStorage from 'src/hooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 interface RootProps {
   children?: React.ReactNode;
