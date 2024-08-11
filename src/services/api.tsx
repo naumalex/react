@@ -1,5 +1,9 @@
 import { buildBody } from './api.helpers';
-import { AnimalsPagedQueryResponse, SearchAnimalParams } from './api.types';
+import {
+  Animal,
+  AnimalsPagedQueryResponse,
+  SearchAnimalParams,
+} from './api.types';
 
 export class api {
   static BASE_URL = 'https://stapi.co/api/v1/rest/';
@@ -34,7 +38,7 @@ export class api {
   static async getAnimal(uid: string): Promise<Animal> {
     const params = new URLSearchParams();
     params.set('uid', uid);
-    const res = await fetch(`${Api.BASE_URL}animal?${params}`, {
+    const res = await fetch(`${api.BASE_URL}animal?${params}`, {
       method: 'GET',
       headers: {
         accept: 'application/json',

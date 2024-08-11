@@ -1,35 +1,17 @@
-'use client';
 import styles from './AnimalDetails.module.css';
 import { Button } from '../Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-import { useGetAnimalQuery } from '../../services/animalApi';
-import { useEffect } from 'react';
-import { setCard } from '../../store/cardSlice';
 import { redirect } from 'next/navigation';
+import { Animal } from '../../services/api.types';
 
 interface AnimalDetailsProps {
-  uid: string;
+  animal: Animal;
 }
 
-export function AnimalDetails({ uid }: AnimalDetailsProps) {
-  const { data, isLoading, error } = useGetAnimalQuery(uid);
-  console.log(`uid ${uid}`);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setCard(data?.animal));
-  }, [data, dispatch]);
-
+export function AnimalDetails({ animal }: AnimalDetailsProps) {
   const handleCloseButtonClick = () => {
     redirect(`/${location.search}`);
   };
-  const animal = useSelector((state: RootState) => state.card);
-
-  return error ? (
-    <>Oh no, there was an error {error}</>
-  ) : isLoading ? (
-    <>Loading...</>
-  ) : animal ? (
+  return animal ? (
     <div className={styles.animalDetails}>
       <h3>Animal Details</h3>
       <div>{`Name: ${animal.name}`}</div>
