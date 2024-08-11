@@ -1,18 +1,21 @@
 import { BrowserRouter } from 'react-router-dom';
-import App from '../App';
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { createMockRouter } from '../testUtils/createMockRouter';
+import { Provider } from 'react-redux';
+import { store } from '../../src/store/store';
+import { SearchBar } from '../components/SearchBar/SearchBar';
+import { ErrorBoundary } from '../components/Error-boundary';
 
 describe('Error Button component', () => {
   it('Click Error button shows message that something went wrong', async () => {
     const user = userEvent.setup();
     render(
-      <AppRouterContext.Provider value={createMockRouter({})}>
-        <App />
-      </AppRouterContext.Provider>,
+      <Provider store={store}>
+        <ErrorBoundary>
+          <SearchBar searchValue="" onChange={() => {}} onSubmit={() => {}} />,
+        </ErrorBoundary>
+      </Provider>,
       { wrapper: BrowserRouter },
     );
     const searchButton = await waitFor(

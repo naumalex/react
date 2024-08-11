@@ -14,7 +14,7 @@ describe('Animal details panel', () => {
     store.dispatch(setCard(mockAnimal));
     render(
       <Provider store={store}>
-        <AnimalDetails uid={mockAnimal.uid} />
+        <AnimalDetails animal={mockAnimal} />
       </Provider>,
     );
     const uid = await waitFor(
@@ -61,7 +61,7 @@ describe('Animal details panel', () => {
             },
           })}
         >
-          <AnimalDetails uid={mockAnimal.uid} />
+          <AnimalDetails animal={mockAnimal} />
         </AppRouterContext.Provider>
       </Provider>,
     );
