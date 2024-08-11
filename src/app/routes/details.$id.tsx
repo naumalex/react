@@ -1,7 +1,10 @@
 import { json, LoaderFunction } from '@remix-run/node';
 import { api } from '../../services/api';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useRouteLoaderData } from '@remix-run/react';
 import { AnimalDetails } from '../../components/AnimalDetails/AnimalDetails';
+import { Root } from '../../components/Root/Root';
+import { INITIAL_PAGE_RESPONSE } from '../../utils/constants';
+import { loader as rootLoader } from '../root';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const data = await api.getAnimal(params.id || '1');
@@ -10,5 +13,11 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function Details() {
   const data = useLoaderData<typeof loader>();
-  return <AnimalDetails animal={data} />;
+  const animalsData =
+    useRouteLoaderData<typeof rootLoader>('root') || INITIAL_PAGE_RESPONSE;
+  return (
+    <Root data={animalsData}>
+      <AnimalDetails animal={data} />
+    </Root>
+  );
 }
