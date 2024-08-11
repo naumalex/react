@@ -2,14 +2,21 @@ import './App.css';
 import { ErrorBoundary } from './components/Error-boundary';
 import { ThemeProvider } from './components/ThemeProvider/ThemeProvider';
 import { Root } from './components/Root/Root';
+import { StoreProvider } from './store/storeProvider';
 
-function App() {
+interface AppProps {
+  children?: React.ReactNode;
+}
+
+function App({ children }: AppProps) {
   return (
-    <ThemeProvider>
-      <ErrorBoundary>
-        <Root />
-      </ErrorBoundary>
-    </ThemeProvider>
+    <StoreProvider>
+      <ThemeProvider>
+        <ErrorBoundary>
+          <Root>{children}</Root>
+        </ErrorBoundary>
+      </ThemeProvider>
+    </StoreProvider>
   );
 }
 export default App;

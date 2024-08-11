@@ -14,7 +14,7 @@ module.exports = {
   plugins: ['react-refresh', 'react-compiler', 'prettier'],
   rules: {
     'react-refresh/only-export-components': [
-      'warn',
+      'off',
       { allowConstantExport: true },
     ],
     'react-compiler/react-compiler': 'error',

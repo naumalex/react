@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
+import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { createMockRouter } from '../testUtils/createMockRouter';
 
 describe('Search Button', () => {
   it('Search button saves the entered value to the local storage', async () => {
@@ -38,7 +40,9 @@ describe('Search Button', () => {
     localStorage.setItem('searchValue', searchText);
     render(
       <Provider store={store}>
-        <App />
+        <AppRouterContext.Provider value={createMockRouter({})}>
+          <App />
+        </AppRouterContext.Provider>
       </Provider>,
       { wrapper: BrowserRouter },
     );

@@ -1,22 +1,23 @@
-import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './SearchResultsList.module.css';
 import { AnimalsListItems } from '../AnimalsListItems/AnimalsListItems';
 import { AnimalsListHeader } from '../AnimalsListHeader/AnimalsListHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useRouter } from 'next/navigation';
 
-export function SearchResultsList() {
-  const navigate = useNavigate();
+interface SearchResultsListProps {
+  children?: React.ReactNode;
+}
+
+export function SearchResultsList({ children }: SearchResultsListProps) {
+  const router = useRouter();
   const animalsResponseData = useSelector(
     (state: RootState) => state.currentPageCards,
   );
   const clickListHandler = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement) {
       if (location.pathname.includes('details')) {
-        navigate({
-          pathname: '/',
-          search: location.search,
-        });
+        router.push(`/${location.search}`);
         return;
       }
       const target = e.target.closest('li');
@@ -25,10 +26,7 @@ export function SearchResultsList() {
       }
       const uid = target.getAttribute('id');
       if (target && uid) {
-        navigate({
-          pathname: `details/${uid}`,
-          search: location.search,
-        });
+        router.push(`details/${uid}/${location.search}`);
       }
     }
   };
@@ -39,7 +37,7 @@ export function SearchResultsList() {
         <AnimalsListHeader />
         <AnimalsListItems data={animalsResponseData.animals} />
       </ul>
-      <Outlet />
+      {children}
     </section>
   ) : null;
 }
