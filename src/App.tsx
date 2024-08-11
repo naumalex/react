@@ -1,19 +1,15 @@
 import './App.css';
 import { ErrorBoundary } from './components/Error-boundary';
 import { ThemeProvider } from './components/ThemeProvider/ThemeProvider';
-import { Root } from './components/Root/Root';
 import { StoreProvider } from './store/StoreProvider';
+import { Outlet } from 'react-router-dom';
 
-interface AppProps {
-  children?: React.ReactNode;
-}
-
-function App({ children }: AppProps) {
+function App() {
   return (
     <StoreProvider>
       <ThemeProvider>
         <ErrorBoundary>
-          <Root>{children}</Root>
+          <Outlet />
         </ErrorBoundary>
       </ThemeProvider>
     </StoreProvider>
