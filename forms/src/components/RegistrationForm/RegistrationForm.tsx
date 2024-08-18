@@ -25,7 +25,6 @@ export function RegistrationForm() {
     console.log('Input change');
     if (e.target.type === 'file' && e.target.files) {
       value = await convertToBase64(e.target.files[0]);
-      console.log(value);
     } else {
       value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     }

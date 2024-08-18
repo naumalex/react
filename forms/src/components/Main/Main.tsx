@@ -15,7 +15,7 @@ export function Main() {
         <Link to='reacthook'>React Hook Form</Link>
       </div>
       <div className={styles.cards}>
-        {forms.length > 0 ? forms.map((card) => <Card data={card} />) : ''}
+        {forms.length > 0 ? forms.map((card) => <Card key={card.name} data={card} />) : ''}
       </div>
     </div>
   );

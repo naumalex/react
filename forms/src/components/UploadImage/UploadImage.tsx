@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from '../RegistrationForm/RegistrationForm';
 
 interface UploadImageProps {
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 export function UploadImage({ onChange }: UploadImageProps) {
