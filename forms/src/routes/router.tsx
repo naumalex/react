@@ -1,17 +1,18 @@
-import { Main } from "../components/Main/Main";
-import { RegistrationForm } from "../components/RegistrationForm/RegistrationForm";
+import { Main } from '../components/Main/Main';
+import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
+import { RegistrationReactHookForm } from '../components/RegistrationReactHookForm/RegistrationReactHookForm';
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Main />,
   },
   {
-    path: "uncontrolled",
+    path: 'uncontrolled',
     element: <RegistrationForm />,
   },
   {
-    path: "reacthook",
-    element: <RegistrationForm />,
+    path: 'reacthook',
+    element: <RegistrationReactHookForm />,
   },
 ];

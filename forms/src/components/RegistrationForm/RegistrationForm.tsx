@@ -1,27 +1,34 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { saveUncontrolledFormData } from "../../store/uncontrolledFormDataSlice";
-import { useNavigate } from "react-router-dom";
-import Country from "../Country/Country";
-import styles from "./RegistrationForm.module.css";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+
+import { useNavigate } from 'react-router-dom';
+import Country from '../Country/Country';
+import styles from './RegistrationForm.module.css';
+import { saveFormData } from '../../store/savedFormsDataSlice';
+import { UploadImage } from '../UploadImage/UploadImage';
+import { convertToBase64 } from './RegistrationForm.helper';
 
 export type ButtonEventHandler<T> = (event: React.MouseEvent<T>) => void;
 export type ChangeEventHandler<T> = (event: React.ChangeEvent<T>) => void;
 
 export function RegistrationForm() {
-  const initialValues = useSelector(
-    (state: RootState) => state.uncontrolledFormData,
-  );
+  const initialValues = useSelector((state: RootState) => state.newFormData);
   console.log(initialValues);
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
   const dispatch = useDispatch();
-  const handleInputChange = (
+  const handleInputChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    let value: string | boolean;
+    console.log('Input change');
+    if (e.target.type === 'file' && e.target.files) {
+      value = await convertToBase64(e.target.files[0]);
+      console.log(value);
+    } else {
+      value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    }
     const { name } = e.target;
     setValues(() => ({
       ...values,
@@ -34,50 +41,50 @@ export function RegistrationForm() {
   ) => {
     e.preventDefault();
     console.log(values);
-    dispatch(saveUncontrolledFormData(values));
-    navigate("/");
+    dispatch(saveFormData(values));
+    navigate('/');
   };
 
   return (
     <form className={styles.form} onSubmit={handleFormSubmit}>
       <input
-        placeholder="Name"
+        placeholder='Name'
         onChange={handleInputChange}
-        name="name"
+        name='name'
         value={values.name}
       />
       <input
-        placeholder="Age"
+        placeholder='Age'
         onChange={handleInputChange}
-        name="age"
+        name='age'
         value={values.age}
       />
       <input
-        placeholder="Email"
+        placeholder='Email'
         onChange={handleInputChange}
-        name="email"
-        type="email"
+        name='email'
+        type='email'
         value={values.email}
       />
       <input
-        placeholder="Password"
+        placeholder='Password'
         onChange={handleInputChange}
-        name="password"
-        type="password"
+        name='password'
+        type='password'
         value={values.password}
       />
       <input
-        placeholder="Confirm Password"
+        placeholder='Confirm Password'
         onChange={handleInputChange}
-        name="confirmPassword"
-        type="password"
+        name='confirmPassword'
+        type='password'
         value={values.confirmPassword}
       />
       <label>
         Gender
         <select
           onChange={handleInputChange}
-          name="gender"
+          name='gender'
           value={values.gender}
         >
           <option>Male</option>
@@ -88,19 +95,14 @@ export function RegistrationForm() {
         Terms and Conditions
         <input
           onChange={handleInputChange}
-          name="isTCAccepted"
-          type="checkbox"
+          name='isTCAccepted'
+          type='checkbox'
           checked={values.isTCAccepted}
         />
       </label>
-      <input
-        placeholder="Upload Image"
-        onChange={handleInputChange}
-        name="image"
-        type="file"
-      />
+      <UploadImage onChange={handleInputChange} />
       <Country onChange={handleInputChange} />
-      <button type="submit">Submit</button>
+      <button type='submit'>Submit</button>
     </form>
   );
 }

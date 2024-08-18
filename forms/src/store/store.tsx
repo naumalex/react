@@ -1,8 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import uncontrolledFormDataSlice from "./uncontrolledFormDataSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import savedFormsDataSlice from './savedFormsDataSlice';
+import newFormDataSlice from './newFormDataSlice';
 
 const store = configureStore({
-  reducer: { uncontrolledFormData: uncontrolledFormDataSlice },
+  reducer: {
+    savedFormsData: savedFormsDataSlice,
+    newFormData: newFormDataSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
