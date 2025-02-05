@@ -23,6 +23,7 @@
     "@remix-run/node": "^2.11.1",
     "@remix-run/react": "^2.11.1",
     "@remix-run/serve": "^2.11.1",
+    "@vitest/coverage-istanbul": "^3.0.5",
     "isbot": "^4.4.0",
     "next": "^14.2.5",
     "react": "^18.3.1",
