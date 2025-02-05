@@ -9,10 +9,6 @@ export default defineConfig({
     setupFiles: 'src/tests/setup.ts',
     coverage: {
       exclude: [...configDefaults.exclude, 'build/*', '*.mjs', '*.cjs'],
-      enabled: true,
-      reporter: ['cobertura'],
-      provider: 'istanbul',
-      reportsDirectory: './reports/coverage',
     },
   },
 });
