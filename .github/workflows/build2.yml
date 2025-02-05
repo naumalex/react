@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: Run tests and collect coverage
+    name: Run tests and collect coverage in irongut
     runs-on: windows-latest
     steps:
       - name: Checkout
