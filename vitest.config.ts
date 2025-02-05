@@ -12,6 +12,7 @@ export default defineConfig({
       enabled: true,
       reporter: ['cobertura'],
       provider: 'istanbul',
+      reportsDirectory: './reports/coverage',
     },
   },
 });
