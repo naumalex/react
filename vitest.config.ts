@@ -11,7 +11,6 @@ export default defineConfig({
       exclude: [...configDefaults.exclude, 'build/*', '*.mjs', '*.cjs'],
       provider: 'istanbul',
       reporter: ['text', 'html', 'clover', 'json', 'cobertura'],
-      reportsDirectory: './reports/coverage',
     },
   },
 });
