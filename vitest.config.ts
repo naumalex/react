@@ -10,7 +10,9 @@ export default defineConfig({
     coverage: {
       exclude: [...configDefaults.exclude, 'build/*', '*.mjs', '*.cjs'],
       provider: 'istanbul',
-      reporter: ['text', 'html', 'clover', 'json', 'cobertura', 'junit'],
+      reporter: ['text', 'html', 'clover', 'json', 'cobertura'],
     },
+    reporters: ['junit'],
+    outputFile: './reports/junit.xml',
   },
 });
