@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: Run tests and collect coverage in irongut
+    name: Run tests and collect coverage in Gallea
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
