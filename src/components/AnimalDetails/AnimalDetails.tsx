@@ -13,7 +13,7 @@ export function AnimalDetails({ animal }: AnimalDetailsProps) {
   };
   return animal ? (
     <div className={styles.animalDetails}>
-      <h3>Animal Details</h3>
+      <h3>Animal Details More</h3>
       <div>{`Name: ${animal.name}`}</div>
       <div>{`Uid: ${animal.uid}`}</div>
       <div>{`Avian: ${animal.avian}`}</div>
