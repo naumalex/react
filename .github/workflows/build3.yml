@@ -28,5 +28,5 @@ jobs:
         with:
           min-coverage-percentage: '90'
           fail-under-coverage-percentage: 'false'
-          cobertura-path: coverage/**/cobertura-coverage.xml
-          junit-path: coverage/**/CodeCoverage_Summary.xml
+          cobertura-path: ./coverage/**/cobertura-coverage.xml
+          junit-path: ./coverage/**/CodeCoverage_Summary.xml
