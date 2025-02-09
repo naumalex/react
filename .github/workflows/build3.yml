@@ -1,0 +1,32 @@
+name: Run tests and upload coverage in aGallea tests-coverage
+
+on: 
+  push
+
+jobs:
+  test:
+    name: Run tests and collect coverage in irongut
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install --force
+
+      - name: Run tests
+        run: npx vitest run --coverage
+
+      - name: Coverage Report
+        if: always()
+        uses: aGallea/tests-coverage-report@v1
+        with:
+          min-coverage-percentage: '90'
+          fail-under-coverage-percentage: 'false'
+          cobertura-path: coverage/**/cobertura-coverage.xml
+          junit-path: coverage/**/CodeCoverage_Summary.xml
