@@ -1,7 +1,7 @@
 name: Run tests and upload coverage in aGallea tests-coverage
 
 on: 
-  push
+  pull_request: null
 
 jobs:
   test:
@@ -29,4 +29,4 @@ jobs:
           min-coverage-percentage: '90'
           fail-under-coverage-percentage: 'false'
           cobertura-path: ./coverage/cobertura-coverage.xml
-          junit-path: ./reports/junit.xml
+          junit-path: ./reports/test-report.xml
